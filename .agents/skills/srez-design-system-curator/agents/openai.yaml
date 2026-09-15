@@ -1,0 +1,6 @@
+interface:
+  display_name: "SREZ Design System Curator"
+  short_description: "Curate SREZ Storybook like a mature product design system"
+  default_prompt: "Use $srez-design-system-curator to simplify and organize SREZ Storybook around public foundations, components, patterns, screens, and documentation while preserving exhaustive QA outside the sidebar."
+policy:
+  allow_implicit_invocation: false

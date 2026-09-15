@@ -1,5 +1,11 @@
 /* SREZ visual QA sweep — shared objective layout/state fixes only. */
 
+/* The original Concept V3 referenced cosmosOracle, but the font asset is intentionally not committed.
+   Use the same fallback chain without requesting a missing asset. */
+:root {
+  --display: 'Fraunces Variable', Fraunces, Georgia, serif;
+}
+
 .srez-icon {
   display: block;
   flex: 0 0 auto;

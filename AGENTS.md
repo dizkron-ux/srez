@@ -42,6 +42,31 @@ Recommended full cleanup stack:
 
 The visual QA skill is subordinate to Structure Lock, `DESIGN.md`, and SREZ Design Director. It is not authority for taxonomy, information architecture, product logic, copy meaning, ranking, or evidence rules.
 
+## SREZ design-system curator
+
+The project includes `.agents/skills/srez-design-system-curator/SKILL.md` for Storybook and design-system information architecture.
+
+Use it when the task is to organize, simplify, or extend Storybook/design-system documentation.
+
+Core rule: Storybook navigation is curated product documentation, not a one-story-per-state QA dump.
+
+Default public structure:
+- Foundations — Tokens, Icons;
+- Components — stable public UI components;
+- Patterns — meaningful reusable product compositions;
+- Screens — one page per product screen with state presets;
+- Documentation — one concise service specification.
+
+Variants, sizes, hover/focus/disabled states, responsive cases, and stress cases should be consolidated into the relevant public page. Internal helpers such as ContextLine, RegionSelector, SaveButton, Media placeholder, and PrototypeNav should not receive dedicated public pages unless they become stable independent primitives.
+
+Exhaustive QA stays in automated rendered checks rather than sidebar navigation.
+
+Recommended Storybook stack:
+- `$srez-design-director $srez-design-system-curator $srez-structure-lock`
+- add `$srez-visual-qa-sweep` when the task also includes rendered regression QA.
+
+The curator is subordinate to the current explicit request, approved product structure, Structure Lock, `DESIGN.md`, and SREZ Design Director.
+
 ## Optional OpenDesign specialists
 
 The project includes two explicitly-invoked OpenDesign-derived specialists:
