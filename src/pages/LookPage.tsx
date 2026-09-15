@@ -83,10 +83,10 @@ export function LookPage({ state, go }: Props) {
 
           <div className="srez-look-detail__cta">
             <div>
-              <strong>{master.name}</strong>
-              <span>{master.shop}</span>
+              <strong>{MASTERS.length} мастера</strong>
+              <span>подходят под {look.name}</span>
             </div>
-            <button type="button" onClick={() => go('Master')}>Записаться</button>
+            <button type="button" onClick={() => go('Catalog')}>Все мастера</button>
           </div>
         </aside>
       </main>
