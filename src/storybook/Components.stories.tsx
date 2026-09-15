@@ -49,7 +49,7 @@ function Section({ title, note, children }: { title: string; note?: string; chil
 
 function Specimen({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div style={{ display: 'grid', gap: 8 }}>
+    <div style={{ minWidth: 0, display: 'grid', gap: 8 }}>
       <span style={{ color: 'var(--pebble)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '.08em' }}>{label}</span>
       {children}
     </div>
@@ -127,7 +127,7 @@ export const Header: Story = {
 export const Filters: Story = {
   render: () => (
     <Page title="Filters" description="Продуктовый фильтр каталога. Таксономические оси остаются отдельными; состояния не дробятся на sidebar stories.">
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) minmax(220px, 280px)', gap: 28, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 280px))', gap: 28, alignItems: 'start' }}>
         <Specimen label="Open"><FiltersComponent open /></Specimen>
         <Specimen label="Closed"><FiltersComponent open={false} /></Specimen>
       </div>
