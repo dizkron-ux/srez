@@ -1,34 +1,73 @@
 # Storybook coverage
 
-Legend: ✅ covered now · 🟡 documented gap / needs product behaviour · QA-only = not production UI.
+Storybook is curated as product documentation, not as a one-story-per-state test catalog.
 
-| Area | Default | Variants/data | Hover/focus | Mobile | Known missing behaviour |
-|---|---:|---:|---:|---:|---|
-| Header | ✅ | ✅ active/saved | interactive | ✅ | — |
-| Button | ✅ | ✅ variants/sizes/disabled | ✅ | n/a | loading/success/error 🟡 |
-| Icon | ✅ | ✅ gallery | n/a | n/a | — |
-| SearchComposer | ✅ | ✅ typed | ✅ | ✅ | real search/autocomplete 🟡 |
-| RegionSelector | ✅ | ✅ long city | ✅ | natural | multi-city persistence 🟡 |
-| ContextLine | ✅ | ✅ back-only/long | keyboard | ✅ | — |
-| LookCard | ✅ | ✅ alt | ✅ | screen-level | non-Mullet open behaviour 🟡 |
-| FocusBlock | ✅ | fixed fixture | interactive | ✅ | zero/multi matches 🟡 |
-| MasterCard | ✅ | ✅ saved/alt/long | ✅ | ✅ | entity-specific saved state 🟡 |
-| SaveButton | ✅ | ✅ saved/disabled | ✅ | natural | persisted entity save 🟡 |
-| Evidence | ✅ | ✅ alt/long | n/a | natural | zero/partial proof rules 🟡 |
-| Filters | ✅ | static selections | checkbox native | ✅ | reset/filter wiring 🟡 |
-| CityModal | ✅ | ✅ typed/focus | interactive | ✅ | focus trap/Escape/persist 🟡 |
-| Media | ✅ | ✅ ratios | n/a | natural | loading/error/alt for real media 🟡 |
-| PrototypeNav | ✅ | ✅ active | interactive | ✅ | QA-only |
+Public navigation follows:
 
-## Screen coverage
+- Foundations
+- Components
+- Patterns
+- Screens
+- Documentation
 
-| Screen | Stories now |
+Exhaustive breakpoint/state coverage remains in automated visual QA.
+
+## Public Storybook inventory
+
+| Section | Page | Coverage on the page | Known missing behaviour |
+|---|---|---|---|
+| Foundations | Tokens | color · typography · shape · spacing | — |
+| Foundations | Icons | full icon gallery | — |
+| Components | Button | variants · sizes · default/hover/focus/disabled | loading/success/error 🟡 |
+| Components | Header | primary active destinations · saved count | — |
+| Components | Filters | open/closed · current selections | reset/filter wiring 🟡 |
+| Components | Modal | city modal interactive state | focus trap/Escape/persist 🟡 |
+| Components | Look card | multiple real look fixtures · interactive hover/focus | entity-specific open behaviour 🟡 |
+| Components | Master card | default · saved · long-content stress | entity-specific saved state 🟡 |
+| Components | Evidence | default · alternate · long-content stress | zero/partial proof rules 🟡 |
+| Patterns | Search composer | default · filled · focus | real search/autocomplete 🟡 |
+| Patterns | Featured match | product composition | zero/multi-match behaviour 🟡 |
+| Screens | Home | preset control | see state matrix below |
+| Screens | Catalog | preset control | see state matrix below |
+| Screens | Master | preset control | see state matrix below |
+| Screens | Work | default | route/entity selection 🟡 |
+| Screens | Photo | preset control | real upload/loading/error 🟡 |
+| Screens | Favourites | preset control | persistence/multiple entities 🟡 |
+| Documentation | Service specification | navigation · coverage · known gaps | — |
+
+## Screen state matrix
+
+Each screen has one visible sidebar page. Use `Controls → preset` to switch meaningful states.
+
+| Screen | Presets |
 |---|---|
-| Home | default; focus selected; all looks; city modal; mobile |
-| Catalog | default; filters open; saved; mobile + filters |
-| Master | default; saved; mobile |
+| Home | default · focus · all-looks · city-modal |
+| Catalog | default · filters-open · saved |
+| Master | default · saved |
 | Work | default |
-| Photo | before analysis; analyzed; analyzed/no tags; mobile |
-| Favourites | empty; saved |
+| Photo | default · analyzed · analyzed-no-tags |
+| Favourites | default · saved |
 
-Responsive QA target set remains 320 / 375 / 414 / 768 / 1280 / 1440. Storybook mobile stories are representative; final visual regression should still inspect every target width on the deployed Storybook.
+## Internal implementation helpers
+
+These remain production code but do not receive dedicated public Storybook pages by default:
+
+- ContextLine;
+- RegionSelector;
+- SaveButton;
+- Media placeholder;
+- PrototypeNav.
+
+They are covered through their parent public components/screens and automated visual QA. Promote one only when it becomes a stable independently-consumed UI primitive.
+
+## QA coverage
+
+Automated Storybook QA renders:
+
+- public components/patterns/foundations at 375 and 1280 px;
+- every screen preset at 320 / 375 / 414 / 768 / 1280 / 1440 px;
+- Storybook play-function states such as hover/focus where defined;
+- overflow, offscreen/clipped UI, wrapped action controls, resource errors, and console errors;
+- screenshots for every rendered check.
+
+Navigation granularity is intentionally smaller than QA granularity.
