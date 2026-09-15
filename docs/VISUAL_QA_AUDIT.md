@@ -1,6 +1,6 @@
 # Visual QA audit
 
-Scope: source-level component audit + rendered Storybook regression sweep. The automated sweep renders every story and captures screenshots. Screen stories are checked at 320 / 375 / 414 / 768 / 1280 / 1440 px; component stories at 375 / 1280 px.
+Scope: source-level component audit + rendered Storybook regression sweep. Storybook navigation is curated separately from QA breadth: public pages stay compact while the audit expands meaningful screen presets and breakpoints behind the scenes.
 
 ## Fixed in the component/system pass
 
@@ -15,20 +15,29 @@ Scope: source-level component audit + rendered Storybook regression sweep. The a
 - Added shared `SaveButton` instead of duplicate save markup in card/profile.
 - Added explicit disabled styling for shared button/save/icon controls.
 - Added dialog/nav/accessibility labels where the existing structure supported them.
-- Added long-content, focus, hover and mobile Storybook cases for reusable components.
-- Storybook now includes Foundations, Components, Screens, QA and Documentation sections.
+- Consolidated Storybook around public Foundations, Components, Patterns, Screens and Documentation instead of one sidebar story per state.
+- Internal helpers remain covered through parent components/screens and QA rather than receiving dedicated public pages.
 
-## First rendered audit — 2026-09-15
+## Rendered audit history — 2026-09-15
 
-Automated result: **91 stories / 248 rendered checks**.
+### Broad migration audit
 
-The first pass surfaced four categories:
-- 130 generic 404 console messages caused by the intentionally uncommitted `cosmosOracle` font reference. The display token now uses the same fallback chain without requesting the missing asset; no font file was added.
-- FocusBlock component story overflow at 375px caused by the Storybook decorator width, not the production component. The story wrapper was corrected.
-- Icon Gallery component story overflow at 375px caused by its three-column minimum width. The story gallery was made responsive.
-- wrapped-control detector false positives for the favourites count badge and deliberately multi-line master name. The detector now treats those structures correctly rather than changing valid production UI.
+The initial migration-oriented Storybook had **91 stories / 248 rendered checks**. That pass was intentionally exhaustive in the sidebar and surfaced Storybook-fixture issues, font-resource noise and a few false positives. It also confirmed that the six production screens did not have horizontal overflow at the target widths.
 
-The production screen screenshots from the first pass did **not** expose horizontal overflow in Home, Catalog, Master, Work, Photo or Favourites at the six target widths. The remaining production issues are behavioural/product-state gaps listed below rather than pixel overflow defects.
+### Curated product Storybook audit
+
+After reorganizing Storybook like a product design system, the public navigation contains **18 visible stories** while automated QA still expands screen state presets.
+
+Current automated result: **18 visible stories / 113 rendered checks / 0 issue records**.
+
+Coverage:
+- Foundations, Components and Patterns at 375 / 1280 px;
+- every Home, Catalog, Master, Work, Photo and Favourites preset at 320 / 375 / 414 / 768 / 1280 / 1440 px;
+- hover/focus play-function states where defined;
+- horizontal overflow, offscreen/clipped UI, wrapped action controls, resource errors and console errors;
+- screenshots for every rendered case.
+
+A first curated run found one Storybook-only overflow in the Filters specimen layout at 375 px. The specimen grid was made responsive and the follow-up audit returned **0 issues**. No production Filters structure was changed for that fix.
 
 ## Product/behaviour gaps found but not silently changed
 
@@ -53,13 +62,15 @@ The production screen screenshots from the first pass did **not** expose horizon
 
 ## Visual checks retained in CI
 
-Every push to `main` now:
+For Storybook checks on PRs and configured pushes, CI:
 1. typechecks the project;
 2. builds Storybook;
 3. launches Chromium;
-4. renders Storybook stories at their QA target widths;
+4. expands the curated stories into their QA state/breakpoint matrix;
 5. checks horizontal overflow, offscreen/clipped UI, wrapped action controls and resource/console errors;
-6. uploads the screenshots and `report.json` as the `storybook-visual-qa` artifact.
+6. uploads screenshots and `report.json` as the `storybook-visual-qa` artifact.
+
+The sidebar can therefore stay concise without reducing regression coverage.
 
 ## Severity convention
 
