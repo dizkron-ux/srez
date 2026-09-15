@@ -28,7 +28,6 @@ export function CatalogHeader({ saved, go, selectedLook, query, onQueryChange, o
             query={query}
             onQueryChange={onQueryChange}
             onSubmit={onSearch}
-            onPhoto={() => go('Photo')}
           />
         </div>
 
