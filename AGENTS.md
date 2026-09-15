@@ -22,6 +22,26 @@ Do not auto-run every installed design skill. A specialist skill may contribute 
 
 Use `.agents/skills/structure-lock/SKILL.md` when the user says Structure Lock, preserve structure, preserve concept, keep the current structure, or equivalent.
 
+## SREZ visual QA specialist
+
+The project includes `.agents/skills/srez-visual-qa-sweep/SKILL.md` for site-wide visual regression and polish QA.
+
+Use it when the task is to inspect the whole product or a broad set of screens for objective implementation/craft defects such as:
+- broken alignment or baselines;
+- touching labels or missing gaps;
+- misplaced arrows/chevrons/icons;
+- clipping, overflow, or bad wrapping;
+- inconsistent spacing/component geometry;
+- broken responsive behavior;
+- missing or visually inconsistent interaction states.
+
+It must inspect the real screen/component inventory, classify findings by severity, prefer shared root-cause fixes, re-check affected breakpoints after edits, and preserve product structure.
+
+Recommended full cleanup stack:
+- `$srez-design-director $srez-visual-qa-sweep $srez-structure-lock`
+
+The visual QA skill is subordinate to Structure Lock, `DESIGN.md`, and SREZ Design Director. It is not authority for taxonomy, information architecture, product logic, copy meaning, ranking, or evidence rules.
+
 ## Optional OpenDesign specialists
 
 The project includes two explicitly-invoked OpenDesign-derived specialists:
