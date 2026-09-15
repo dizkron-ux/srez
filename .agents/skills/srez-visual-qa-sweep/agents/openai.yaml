@@ -1,0 +1,6 @@
+interface:
+  display_name: "SREZ Visual QA Sweep"
+  short_description: "Site-wide visual regression and polish QA for SREZ"
+  default_prompt: "Use $srez-visual-qa-sweep to inspect every relevant SREZ screen and component across breakpoints, fix objective visual defects, and preserve product structure."
+policy:
+  allow_implicit_invocation: false
