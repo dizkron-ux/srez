@@ -1,0 +1,6 @@
+interface:
+  display_name: "OpenDesign Editorial Taste"
+  short_description: "Editorial visual polish for SREZ"
+  default_prompt: "Use $open-design-editorial-taste to polish the requested SREZ UI while preserving DESIGN.md and product structure."
+policy:
+  allow_implicit_invocation: false
