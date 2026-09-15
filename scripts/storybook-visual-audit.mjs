@@ -1,0 +1,143 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { chromium } from 'playwright';
+
+const baseUrl = process.env.STORYBOOK_URL || 'http://127.0.0.1:6006';
+const outputDir = path.resolve('visual-qa');
+const screenshotDir = path.join(outputDir, 'screenshots');
+fs.rmSync(outputDir, { recursive: true, force: true });
+fs.mkdirSync(screenshotDir, { recursive: true });
+
+const index = JSON.parse(fs.readFileSync('storybook-static/index.json', 'utf8'));
+const entries = Object.entries(index.entries || {})
+  .map(([id, entry]) => ({ id, ...entry }))
+  .filter(entry => entry.type === 'story')
+  .sort((a, b) => `${a.title}/${a.name}`.localeCompare(`${b.title}/${b.name}`));
+
+const screenWidths = [320, 375, 414, 768, 1280, 1440];
+const componentWidths = [375, 1280];
+const docsWidths = [1280];
+const safeName = value => value.replace(/[^a-z0-9_-]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
+
+const browser = await chromium.launch({ headless: true });
+const report = {
+  generatedAt: new Date().toISOString(),
+  source: baseUrl,
+  stories: entries.length,
+  checks: 0,
+  issues: [],
+  results: [],
+};
+
+for (const story of entries) {
+  const widths = story.title.startsWith('Screens/') ? screenWidths : story.title.startsWith('Components/') ? componentWidths : docsWidths;
+
+  for (const width of widths) {
+    const page = await browser.newPage({ viewport: { width, height: width <= 414 ? 900 : 1100 }, deviceScaleFactor: 1 });
+    const url = `${baseUrl}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`;
+    const consoleErrors = [];
+    page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+    page.on('pageerror', error => consoleErrors.push(error.message));
+
+    let loadError = null;
+    try {
+      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForTimeout(180);
+    } catch (error) {
+      loadError = error instanceof Error ? error.message : String(error);
+    }
+
+    const audit = loadError ? null : await page.evaluate(() => {
+      const isVisible = el => {
+        const style = getComputedStyle(el);
+        const rect = el.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) !== 0 && rect.width > 0 && rect.height > 0;
+      };
+      const selector = el => {
+        if (el.id) return `#${el.id}`;
+        const classes = [...el.classList].slice(0, 3).join('.');
+        return `${el.tagName.toLowerCase()}${classes ? `.${classes}` : ''}`;
+      };
+      const ignore = el => !!el.closest('.preview-nav, .preview-media, .cosmos-collage, [data-qa-ignore]');
+      const viewportWidth = window.innerWidth;
+      const all = [...document.body.querySelectorAll('*')];
+      const offscreen = [];
+      const clipped = [];
+      const wrappedControls = [];
+
+      for (const el of all) {
+        if (!isVisible(el) || ignore(el)) continue;
+        const rect = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        const meaningful = el.matches('button,a,input,label,h1,h2,h3,p,span,strong,nav,header,aside,section,article');
+        if (meaningful && (rect.left < -2 || rect.right > viewportWidth + 2)) {
+          offscreen.push({ selector: selector(el), left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) });
+        }
+        if (meaningful && el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 2 && ['hidden','clip'].includes(style.overflowX)) {
+          clipped.push({ selector: selector(el), clientWidth: el.clientWidth, scrollWidth: el.scrollWidth });
+        }
+      }
+
+      for (const el of document.querySelectorAll('button,a,[role="button"]')) {
+        if (!isVisible(el) || ignore(el) || !el.textContent?.trim()) continue;
+        const ys = new Set();
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        let node;
+        while ((node = walker.nextNode())) {
+          if (!node.textContent?.trim()) continue;
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          for (const rect of range.getClientRects()) ys.add(Math.round(rect.top));
+        }
+        if (ys.size > 1) wrappedControls.push({ selector: selector(el), text: el.textContent.trim().slice(0, 100), lines: ys.size });
+      }
+
+      return {
+        documentScrollWidth: document.documentElement.scrollWidth,
+        bodyScrollWidth: document.body.scrollWidth,
+        viewportWidth,
+        horizontalOverflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) > viewportWidth + 2,
+        offscreen: offscreen.slice(0, 30),
+        clipped: clipped.slice(0, 30),
+        wrappedControls: wrappedControls.slice(0, 30),
+      };
+    });
+
+    const slug = `${safeName(story.title)}--${safeName(story.name)}--${width}`;
+    const screenshot = path.join(screenshotDir, `${slug}.png`);
+    if (!loadError) await page.screenshot({ path: screenshot, fullPage: true });
+
+    const issues = [];
+    if (loadError) issues.push({ type: 'load-error', detail: loadError });
+    if (audit?.horizontalOverflow) issues.push({ type: 'horizontal-overflow', detail: `${audit.documentScrollWidth}px document / ${audit.viewportWidth}px viewport` });
+    if (audit?.offscreen.length) issues.push({ type: 'offscreen-elements', detail: audit.offscreen });
+    if (audit?.clipped.length) issues.push({ type: 'clipped-elements', detail: audit.clipped });
+    if (audit?.wrappedControls.length) issues.push({ type: 'wrapped-controls', detail: audit.wrappedControls });
+    if (consoleErrors.length) issues.push({ type: 'console-errors', detail: consoleErrors.slice(0, 10) });
+
+    report.checks += 1;
+    report.results.push({ story: `${story.title} / ${story.name}`, storyId: story.id, width, issues, screenshot: loadError ? null : `screenshots/${path.basename(screenshot)}` });
+    for (const issue of issues) report.issues.push({ story: `${story.title} / ${story.name}`, storyId: story.id, width, ...issue });
+    await page.close();
+  }
+}
+
+await browser.close();
+fs.writeFileSync(path.join(outputDir, 'report.json'), JSON.stringify(report, null, 2));
+
+const grouped = report.issues.reduce((acc, issue) => {
+  acc[issue.type] = (acc[issue.type] || 0) + 1;
+  return acc;
+}, {});
+
+console.log('\n=== SREZ Storybook visual audit ===');
+console.log(`Stories: ${report.stories}`);
+console.log(`Rendered checks: ${report.checks}`);
+console.log(`Issue records: ${report.issues.length}`);
+console.log('Issue types:', grouped);
+
+for (const issue of report.issues.slice(0, 80)) {
+  const detail = typeof issue.detail === 'string' ? issue.detail : JSON.stringify(issue.detail);
+  console.log(`QA_ISSUE | ${issue.type} | ${issue.width}px | ${issue.story} | ${detail.slice(0, 900)}`);
+}
+if (report.issues.length > 80) console.log(`... ${report.issues.length - 80} more issue records in visual-qa/report.json`);

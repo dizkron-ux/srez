@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,3 +17,23 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm run typecheck
       - run: npm run build-storybook
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run rendered Storybook visual audit
+        run: |
+          python3 -m http.server 6006 --bind 127.0.0.1 --directory storybook-static > /tmp/srez-storybook-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:6006/index.json >/dev/null && break
+            sleep 1
+          done
+          npm run audit-storybook
+      - name: Upload Storybook visual QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-visual-qa
+          path: visual-qa
+          if-no-files-found: warn
+          retention-days: 14
