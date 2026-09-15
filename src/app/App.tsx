@@ -3,13 +3,14 @@ import { PrototypeNav } from '../components/PrototypeNav/PrototypeNav';
 import { CatalogPage } from '../pages/CatalogPage';
 import { FavouritesPage } from '../pages/FavouritesPage';
 import { HomePage } from '../pages/HomePage';
+import { LookPage } from '../pages/LookPage';
 import { MasterPage } from '../pages/MasterPage';
 import { PhotoPage } from '../pages/PhotoPage';
 import { WorkPage } from '../pages/WorkPage';
 import type { AppState, Screen } from '../types';
 
 const initialState: AppState = {
-  screen:'Home', focus:false, city:false, showAll:false, filtersOpen:false,
+  screen:'Home', focus:false, selectedLookId:null, city:false, showAll:false, filtersOpen:false,
   photoAnalyzed:false, photoTags:['Mullet','Волнистые','Средняя длина','Textured'], saved:false,
 };
 
@@ -37,6 +38,7 @@ export function App() {
 
   const page = useMemo(() => {
     switch(state.screen) {
+      case 'Look': return <LookPage state={state} go={go} />;
       case 'Catalog': return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
       case 'Master': return <MasterPage state={state} go={go} onSave={onSave} />;
       case 'Work': return <WorkPage state={state} go={go} />;
