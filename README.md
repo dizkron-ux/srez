@@ -48,6 +48,8 @@ npm run build
 
 Storybook is not a separate version of SREZ. It renders the same components the product uses. Component changes should be made once and observed both in the app and its stories.
 
+https://srez-better-ui-storybook.vercel.app/?path=/story/00-foundations--surface-rules
+
 ## Migration status
 
 Initial goal: structure and interaction fidelity, not redesign. The legacy file remains the reference for regression comparison.
