@@ -24,7 +24,7 @@ export function HomePage({ state, setState, go, toast }: Props) {
   };
   return (
     <div className="srez-app">
-      <Header screen={state.screen} saved={state.saved} go={go} />
+      <Header screen={state.screen} saved={state.saved} go={go} selectedLook={state.focus ? 'Mullet' : null} />
       <main className="srez-shell">
         <section className="srez-hero">
           <RegionSelector city="Москва" onClick={() => setState(s => ({...s, city:true}))} />
