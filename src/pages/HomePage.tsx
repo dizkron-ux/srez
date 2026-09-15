@@ -4,6 +4,7 @@ import { CityModal } from '../components/CityModal/CityModal';
 import { FocusBlock } from '../components/FocusBlock/FocusBlock';
 import { Header } from '../components/Header/Header';
 import { LookCard } from '../components/LookCard/LookCard';
+import { RegionSelector } from '../components/RegionSelector/RegionSelector';
 import { SearchComposer } from '../components/SearchComposer/SearchComposer';
 import type { AppState, Screen } from '../types';
 
@@ -26,7 +27,7 @@ export function HomePage({ state, setState, go, toast }: Props) {
       <Header screen={state.screen} saved={state.saved} go={go} />
       <main className="srez-shell">
         <section className="srez-hero">
-          <div className="srez-region"><span className="srez-region__label">Город</span><button className="srez-region__city" onClick={() => setState(s => ({...s, city:true}))}>Москва</button></div>
+          <RegionSelector city="Москва" onClick={() => setState(s => ({...s, city:true}))} />
           <h1>Найди мастера<br/>под стрижку, которую хочешь</h1>
           <SearchComposer go={go} />
         </section>
