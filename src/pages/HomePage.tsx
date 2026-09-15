@@ -26,7 +26,7 @@ export function HomePage({ state, setState, go, toast }: Props) {
       <Header screen={state.screen} saved={state.saved} go={go} />
       <main className="srez-shell">
         <section className="srez-hero">
-          <div className="srez-region"><span className="srez-region__label">Город</span><button className="srez-region__city" onClick={() => setState(s => ({...s, city:true}))}>Москва <span>⌄</span></button></div>
+          <div className="srez-region"><span className="srez-region__label">Город</span><button className="srez-region__city" onClick={() => setState(s => ({...s, city:true}))}>Москва</button></div>
           <h1>Найди мастера<br/>под стрижку, которую хочешь</h1>
           <SearchComposer go={go} />
         </section>

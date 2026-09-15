@@ -1,0 +1,68 @@
+/* SREZ visual QA sweep — objective layout fixes only. */
+
+.srez-context-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.srez-back {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.srez-region__city {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.2;
+}
+
+.srez-region__city::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  transform-origin: center;
+  flex: 0 0 auto;
+}
+
+.srez-hero h1,
+.srez-catalog-head h1,
+.srez-photo h1,
+.srez-favs h1,
+.srez-master-hero__info h1,
+.srez-work-side h1 {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cosmos-section-heading {
+  gap: 12px;
+}
+
+.cosmos-section-heading > * {
+  min-width: 0;
+}
+
+.cosmos-section-heading button {
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 700px) {
+  .srez-context-line {
+    gap: 9px 12px;
+  }
+
+  .cosmos-section-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
