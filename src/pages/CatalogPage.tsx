@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CatalogFilterBar } from '../components/CatalogFilterBar/CatalogFilterBar';
+import { CatalogFilters } from '../components/CatalogFilters/CatalogFilters';
 import { CatalogHeader } from '../components/CatalogHeader/CatalogHeader';
 import { MasterCard } from '../components/MasterCard/MasterCard';
 import { MASTERS } from '../data/masters';
@@ -28,17 +28,9 @@ export function CatalogPage({ state, setState, go, onSave }: Props) {
       />
 
       <main className="srez-shell srez-cosmos-catalog">
-        <CatalogFilterBar initialOpen={state.filtersOpen ? 'hair' : null} />
-
         <section className="srez-cosmos-catalog__intro">
-          <div>
-            <span className="srez-eyebrow">Каталог мастеров</span>
-            <h1>Мастера</h1>
-          </div>
-          <div className="srez-cosmos-catalog__summary">
-            <strong>{MASTERS.length} мастера</strong>
-            <span>{selectedLook ? `с подтверждениями по ${selectedLook}` : 'с подтверждениями компетенции'}</span>
-          </div>
+          <h1>Мастера</h1>
+          <CatalogFilters initialOpen={state.filtersOpen} />
         </section>
 
         <section className="srez-cosmos-catalog__results" aria-label="Результаты каталога">
