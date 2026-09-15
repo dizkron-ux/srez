@@ -1,0 +1,6 @@
+interface:
+  display_name: "SREZ Design Director"
+  short_description: "Art-direct and polish SREZ product UI"
+  default_prompt: "Use $srez-design-director to audit and polish the requested SREZ screen while preserving product intent."
+policy:
+  allow_implicit_invocation: false

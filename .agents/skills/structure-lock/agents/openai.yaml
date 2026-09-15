@@ -1,0 +1,6 @@
+interface:
+  display_name: "SREZ Structure Lock"
+  short_description: "Preserve approved SREZ product structure"
+  default_prompt: "Use $srez-structure-lock to preserve the approved SREZ structure while applying only requested visual or implementation changes."
+policy:
+  allow_implicit_invocation: false
