@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { PrototypeNav } from '../components/PrototypeNav/PrototypeNav';
 import { CatalogPage } from '../pages/CatalogPage';
 import { FavouritesPage } from '../pages/FavouritesPage';
 import { HomePage } from '../pages/HomePage';
@@ -46,5 +45,5 @@ export function App() {
     }
   }, [state]);
 
-  return <>{page}<PrototypeNav screen={state.screen} go={go} /><div className={`preview-toast ${toastVisible ? 'show' : ''}`}>{toastText}</div></>;
+  return <>{page}<div className={`preview-toast ${toastVisible ? 'show' : ''}`}>{toastText}</div></>;
 }

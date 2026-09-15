@@ -13,10 +13,11 @@ export function SaveButton({ saved, onClick, disabled = false }: Props) {
       className={`cosmos-save ${saved ? 'is-saved' : ''}`}
       onClick={onClick}
       aria-pressed={saved}
+      aria-label={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
+      title={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
       disabled={disabled}
     >
       <Icon name={saved ? 'heart-filled' : 'heart'} size={14} />
-      <span>{saved ? 'Saved' : 'Save'}</span>
     </button>
   );
 }

@@ -20,7 +20,6 @@ export function MasterPage({ state, go, onSave }: Props) {
   const selectedLook = LOOKS.find(look => look.id === state.selectedLookId)?.name ?? null;
   return <div className="srez-app srez-master-profile-page"><Header screen={state.screen} saved={state.saved} go={go} selectedLook={selectedLook} /><main className="srez-shell">
     <section className="srez-master-profile-head">
-      <ContextLine onBack={() => go('Catalog')} backLabel="Назад к результатам" />
       <div className="srez-master-profile-identity">
         <div className="srez-master-profile-avatar">{master.name.slice(0, 1)}</div>
         <div className="srez-master-profile-copy">

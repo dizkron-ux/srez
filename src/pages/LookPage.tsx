@@ -36,7 +36,6 @@ export function LookPage({ state, go }: Props) {
 
         <aside className="srez-look-detail__rail">
           <div className="srez-look-detail__rail-head">
-            <span className="srez-eyebrow">СТРИЖКА</span>
             <h1>{look.name}</h1>
             <p>{look.fit}</p>
           </div>

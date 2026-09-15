@@ -27,7 +27,6 @@ export function WorkPage({ state, go }: Props) {
           </section>
 
           <aside className="srez-work-side">
-            <span className="srez-eyebrow">СТРИЖКА</span>
             <h1>{look.name}</h1>
             <p>В этом прототипе изображение служит только для проверки структуры интерфейса. Оно не является реальной работой мастера.</p>
 
