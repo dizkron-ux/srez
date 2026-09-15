@@ -1,13 +1,14 @@
 import { CatalogFilters } from '../components/CatalogFilters/CatalogFilters';
 import { Header } from '../components/Header/Header';
 import { MasterCard } from '../components/MasterCard/MasterCard';
+import { LOOKS } from '../data/looks';
 import { MASTERS } from '../data/masters';
 import type { AppState, Screen } from '../types';
 
 type Props = { state: AppState; setState: React.Dispatch<React.SetStateAction<AppState>>; go: (screen: Screen) => void; onSave: () => void };
 
 export function CatalogPage({ state, go, onSave }: Props) {
-  const selectedLook = state.focus ? 'Mullet' : null;
+  const selectedLook = LOOKS.find(look => look.id === state.selectedLookId)?.name ?? null;
 
   return (
     <div className="srez-app srez-app--cosmos-catalog">
