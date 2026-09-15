@@ -5,7 +5,6 @@ import { FavouritesPage } from '../pages/FavouritesPage';
 import { HomePage } from '../pages/HomePage';
 import { LookPage } from '../pages/LookPage';
 import { MasterPage } from '../pages/MasterPage';
-import { PhotoPage } from '../pages/PhotoPage';
 import { WorkPage } from '../pages/WorkPage';
 import type { AppState, Screen } from '../types';
 
@@ -20,7 +19,7 @@ export function App() {
   const [toastVisible, setToastVisible] = useState(false);
 
   const go = (screen: Screen) => {
-    setState(s => ({ ...s, screen }));
+    setState(s => ({ ...s, screen, ...(screen === 'Home' ? { selectedLookId: null, focus: false } : {}) }));
     window.scrollTo(0,0);
   };
 
@@ -42,7 +41,6 @@ export function App() {
       case 'Catalog': return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
       case 'Master': return <MasterPage state={state} go={go} onSave={onSave} />;
       case 'Work': return <WorkPage state={state} go={go} />;
-      case 'Photo': return <PhotoPage state={state} setState={setState} go={go} />;
       case 'Favourites': return <FavouritesPage state={state} go={go} onSave={onSave} />;
       default: return <HomePage state={state} setState={setState} go={go} toast={toast} />;
     }

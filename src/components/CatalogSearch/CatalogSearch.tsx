@@ -77,7 +77,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
     });
   };
 
-  const showDefaultScope = !selectedLook && !photo;
+  const showSearchIcon = !selectedLook && !photo;
 
   return (
     <form
@@ -96,13 +96,6 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
           </div>
         ) : null}
 
-        {showDefaultScope ? (
-          <div className="srez-catalog-search__scope">
-            <span className="srez-catalog-search__scope-mark">С</span>
-            <span className="srez-catalog-search__scope-label">Мастера</span>
-          </div>
-        ) : null}
-
         {photo ? (
           <div className="srez-catalog-search__photo-token">
             <img src={photo.url} alt="" />
@@ -111,6 +104,8 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
           </div>
         ) : null}
       </div>
+
+      {showSearchIcon ? <Icon name="search" size={18} className="srez-catalog-search__search-icon" /> : null}
 
       <div className="srez-catalog-search__input-wrap">
         <input

@@ -1,6 +1,4 @@
 import type { Master, Screen } from '../../types';
-import { Evidence } from '../Evidence/Evidence';
-import { Icon } from '../Icon/Icon';
 import { Media } from '../Media/Media';
 import { SaveButton } from '../SaveButton/SaveButton';
 
@@ -22,9 +20,7 @@ export function MasterCard({ master, saved, onSave, go }: Props) {
           <div><button type="button" className="srez-master-card__name" onClick={() => go('Master')}>{master.name}</button><div className="srez-master-card__meta">{master.place}</div></div>
           <SaveButton saved={saved} onClick={onSave} />
         </div>
-        <Evidence master={master} />
         <div className="srez-proto-note">Изображения выше — иллюстративные плейсхолдеры, не работы мастера.</div>
-        <div className="srez-card-foot"><span></span><button type="button" className="srez-open-master" onClick={() => go('Master')}>Открыть мастера <Icon name="arrow-right" size={13} /></button></div>
       </div>
     </article>
   );
