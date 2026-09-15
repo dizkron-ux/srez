@@ -16,5 +16,5 @@ type Story = StoryObj<typeof meta>;
 export const Search: Story = {};
 export const Heart: Story = { args: { name: 'heart' } };
 export const Gallery: Story = {
-  render: () => <div style={{display:'grid',gridTemplateColumns:'repeat(3,minmax(110px,1fr))',gap:16,padding:24}}>{names.map(name => <div key={name} style={{display:'flex',alignItems:'center',gap:8,fontSize:12}}><Icon name={name} size={20}/><span>{name}</span></div>)}</div>,
+  render: () => <div style={{width:'min(520px, calc(100vw - 32px))',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(96px,1fr))',gap:16}}>{names.map(name => <div key={name} style={{display:'flex',minWidth:0,alignItems:'center',gap:8,fontSize:12}}><Icon name={name} size={20}/><span style={{overflowWrap:'anywhere'}}>{name}</span></div>)}</div>,
 };

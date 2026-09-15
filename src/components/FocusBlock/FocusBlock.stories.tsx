@@ -6,7 +6,7 @@ const meta = {
   title: 'Components/FocusBlock',
   component: FocusBlock,
   parameters: { layout: 'centered' },
-  decorators: [(Story) => <div style={{width:1100,maxWidth:'96vw'}}><Story /></div>],
+  decorators: [(Story) => <div style={{width:'min(1100px, calc(100vw - 32px))'}}><Story /></div>],
   args: { go: fn() },
 } satisfies Meta<typeof FocusBlock>;
 

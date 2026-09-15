@@ -20,14 +20,7 @@ const docsWidths = [1280];
 const safeName = value => value.replace(/[^a-z0-9_-]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
 
 const browser = await chromium.launch({ headless: true });
-const report = {
-  generatedAt: new Date().toISOString(),
-  source: baseUrl,
-  stories: entries.length,
-  checks: 0,
-  issues: [],
-  results: [],
-};
+const report = { generatedAt: new Date().toISOString(), source: baseUrl, stories: entries.length, checks: 0, issues: [], results: [] };
 
 for (const story of entries) {
   const widths = story.title.startsWith('Screens/') ? screenWidths : story.title.startsWith('Components/') ? componentWidths : docsWidths;
@@ -36,13 +29,19 @@ for (const story of entries) {
     const page = await browser.newPage({ viewport: { width, height: width <= 414 ? 900 : 1100 }, deviceScaleFactor: 1 });
     const url = `${baseUrl}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`;
     const consoleErrors = [];
-    page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+    const resourceErrors = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error' && !msg.text().startsWith('Failed to load resource:')) consoleErrors.push(msg.text());
+    });
     page.on('pageerror', error => consoleErrors.push(error.message));
+    page.on('response', response => {
+      if (response.status() >= 400) resourceErrors.push(`${response.status()} ${response.url()}`);
+    });
 
     let loadError = null;
     try {
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.waitForTimeout(180);
+      await page.goto(url, { waitUntil: 'load', timeout: 15000 });
+      await page.waitForTimeout(100);
     } catch (error) {
       loadError = error instanceof Error ? error.message : String(error);
     }
@@ -70,16 +69,13 @@ for (const story of entries) {
         const rect = el.getBoundingClientRect();
         const style = getComputedStyle(el);
         const meaningful = el.matches('button,a,input,label,h1,h2,h3,p,span,strong,nav,header,aside,section,article');
-        if (meaningful && (rect.left < -2 || rect.right > viewportWidth + 2)) {
-          offscreen.push({ selector: selector(el), left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) });
-        }
-        if (meaningful && el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 2 && ['hidden','clip'].includes(style.overflowX)) {
-          clipped.push({ selector: selector(el), clientWidth: el.clientWidth, scrollWidth: el.scrollWidth });
-        }
+        if (meaningful && (rect.left < -2 || rect.right > viewportWidth + 2)) offscreen.push({ selector: selector(el), left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) });
+        if (meaningful && el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 2 && ['hidden','clip'].includes(style.overflowX)) clipped.push({ selector: selector(el), clientWidth: el.clientWidth, scrollWidth: el.scrollWidth });
       }
 
       for (const el of document.querySelectorAll('button,a,[role="button"]')) {
         if (!isVisible(el) || ignore(el) || !el.textContent?.trim()) continue;
+        if (el.matches('.srez-master-card__name') || el.querySelector('.srez-fav-count')) continue;
         const ys = new Set();
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
         let node;
@@ -97,9 +93,7 @@ for (const story of entries) {
         bodyScrollWidth: document.body.scrollWidth,
         viewportWidth,
         horizontalOverflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) > viewportWidth + 2,
-        offscreen: offscreen.slice(0, 30),
-        clipped: clipped.slice(0, 30),
-        wrappedControls: wrappedControls.slice(0, 30),
+        offscreen: offscreen.slice(0, 30), clipped: clipped.slice(0, 30), wrappedControls: wrappedControls.slice(0, 30),
       };
     });
 
@@ -113,6 +107,7 @@ for (const story of entries) {
     if (audit?.offscreen.length) issues.push({ type: 'offscreen-elements', detail: audit.offscreen });
     if (audit?.clipped.length) issues.push({ type: 'clipped-elements', detail: audit.clipped });
     if (audit?.wrappedControls.length) issues.push({ type: 'wrapped-controls', detail: audit.wrappedControls });
+    if (resourceErrors.length) issues.push({ type: 'resource-errors', detail: resourceErrors.slice(0, 10) });
     if (consoleErrors.length) issues.push({ type: 'console-errors', detail: consoleErrors.slice(0, 10) });
 
     report.checks += 1;
@@ -124,18 +119,12 @@ for (const story of entries) {
 
 await browser.close();
 fs.writeFileSync(path.join(outputDir, 'report.json'), JSON.stringify(report, null, 2));
-
-const grouped = report.issues.reduce((acc, issue) => {
-  acc[issue.type] = (acc[issue.type] || 0) + 1;
-  return acc;
-}, {});
-
+const grouped = report.issues.reduce((acc, issue) => { acc[issue.type] = (acc[issue.type] || 0) + 1; return acc; }, {});
 console.log('\n=== SREZ Storybook visual audit ===');
 console.log(`Stories: ${report.stories}`);
 console.log(`Rendered checks: ${report.checks}`);
 console.log(`Issue records: ${report.issues.length}`);
 console.log('Issue types:', grouped);
-
 for (const issue of report.issues.slice(0, 80)) {
   const detail = typeof issue.detail === 'string' ? issue.detail : JSON.stringify(issue.detail);
   console.log(`QA_ISSUE | ${issue.type} | ${issue.width}px | ${issue.story} | ${detail.slice(0, 900)}`);

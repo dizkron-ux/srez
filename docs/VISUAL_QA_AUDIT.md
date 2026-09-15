@@ -1,21 +1,34 @@
 # Visual QA audit
 
-Scope: source-level audit of Concept V3 components/screens plus the user-reported rendered defects. This is not yet a screenshot-regression report for every breakpoint; that final pass requires the current Storybook deployment to be available and connected to this repository.
+Scope: source-level component audit + rendered Storybook regression sweep. The automated sweep renders every story and captures screenshots. Screen stories are checked at 320 / 375 / 414 / 768 / 1280 / 1440 px; component stories at 375 / 1280 px.
 
-## Fixed in the QA/component pass
+## Fixed in the component/system pass
 
 ### P1 — obvious craft defects
-- City selector chevron baseline drift: replaced font-glyph dependency with stable component/CSS alignment.
-- Back + eyebrow collision on Photo/Catalog/Favourites: moved to shared ContextLine.
-- Unicode action glyphs in SearchComposer, master cards, LookCard, modal and FocusBlock: replaced with shared SVG Icon component to remove font/baseline variance.
-- Master/Work back affordances now reuse ContextLine instead of page-local arrow text.
-- Mobile Header previously hid the Masters destination at <=700px; override keeps all three primary destinations reachable.
+- City selector chevron baseline drift: removed font-glyph dependency and stabilized alignment.
+- Back + eyebrow collision on Photo/Catalog/Favourites: moved to shared `ContextLine`.
+- Unicode action glyphs in SearchComposer, master cards, LookCard, modal and FocusBlock: replaced by shared SVG `Icon` component.
+- Master/Work back affordances now reuse `ContextLine` instead of page-local arrow text.
+- Mobile Header previously hid the Masters destination at <=700px; all three primary destinations now remain reachable.
 
 ### P2 — component consistency
-- Added shared SaveButton instead of duplicate save markup in card/profile.
+- Added shared `SaveButton` instead of duplicate save markup in card/profile.
 - Added explicit disabled styling for shared button/save/icon controls.
-- Added dialog/nav/accessibility labels where the structure already supported them.
+- Added dialog/nav/accessibility labels where the existing structure supported them.
 - Added long-content, focus, hover and mobile Storybook cases for reusable components.
+- Storybook now includes Foundations, Components, Screens, QA and Documentation sections.
+
+## First rendered audit — 2026-09-15
+
+Automated result: **91 stories / 248 rendered checks**.
+
+The first pass surfaced four categories:
+- 130 generic 404 console messages caused by the intentionally uncommitted `cosmosOracle` font reference. The display token now uses the same fallback chain without requesting the missing asset; no font file was added.
+- FocusBlock component story overflow at 375px caused by the Storybook decorator width, not the production component. The story wrapper was corrected.
+- Icon Gallery component story overflow at 375px caused by its three-column minimum width. The story gallery was made responsive.
+- wrapped-control detector false positives for the favourites count badge and deliberately multi-line master name. The detector now treats those structures correctly rather than changing valid production UI.
+
+The production screen screenshots from the first pass did **not** expose horizontal overflow in Home, Catalog, Master, Work, Photo or Favourites at the six target widths. The remaining production issues are behavioural/product-state gaps listed below rather than pixel overflow defects.
 
 ## Product/behaviour gaps found but not silently changed
 
@@ -38,21 +51,15 @@ Scope: source-level audit of Concept V3 components/screens plus the user-reporte
 - favourites multiple items / persistence / empty-after-remove;
 - network and retry states generally.
 
-## Responsive risks to verify visually on deployed Storybook
+## Visual checks retained in CI
 
-Check each applicable screen/component at 320, 375, 414, 768, 1280 and 1440 px:
-- Header width with saved-count visible;
-- hero/display-heading wraps;
-- SearchComposer two-action stack;
-- ContextLine with long eyebrow;
-- FocusBlock long master metadata;
-- MasterCard long name/place/proof;
-- filter open/closed transition at <=900;
-- Master hero collapse;
-- Work detail image/sidebar collapse;
-- Photo analyzed grid collapse;
-- modal safe padding;
-- fixed PrototypeNav overlap (QA-only).
+Every push to `main` now:
+1. typechecks the project;
+2. builds Storybook;
+3. launches Chromium;
+4. renders Storybook stories at their QA target widths;
+5. checks horizontal overflow, offscreen/clipped UI, wrapped action controls and resource/console errors;
+6. uploads the screenshots and `report.json` as the `storybook-visual-qa` artifact.
 
 ## Severity convention
 
