@@ -1,6 +1,6 @@
 import type { Screen } from '../../types';
 
-const screens: Screen[] = ['Home','Catalog','Master','Work','Photo','Favourites'];
+const screens: Screen[] = ['Home','Look','Catalog','Master','Work','Photo','Favourites'];
 
 type Props = { screen: Screen; go: (screen: Screen) => void };
 
