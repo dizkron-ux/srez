@@ -69,7 +69,6 @@ export function CatalogFilters({ initialOpen = false }: Props) {
         onClick={() => setOpen(value => !value)}
       >
         <Icon name="sliders" size={18} />
-        {selectedCount ? <span>{selectedCount}</span> : null}
       </button>
 
       {open ? (
