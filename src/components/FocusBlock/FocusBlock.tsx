@@ -1,6 +1,7 @@
 import { LOOKS } from '../../data/looks';
 import { MASTERS } from '../../data/masters';
 import { Button } from '../Button/Button';
+import { Icon } from '../Icon/Icon';
 import { Media } from '../Media/Media';
 import type { Screen } from '../../types';
 
@@ -23,10 +24,10 @@ export function FocusBlock({ go }: Props) {
           <article className="srez-master-mini">
             <span className="cosmos-avatar" style={{ width:34, height:34, background:'#d9d0c7' }}>{master.name[0]}</span>
             <div className="srez-master-mini__body"><strong>{master.name}</strong><span>{master.place}</span><small>Есть опубликованная работа с Mullet</small></div>
-            <button className="srez-mini-arrow" onClick={() => go('Master')}>↗</button>
+            <button type="button" className="srez-mini-arrow" aria-label={`Открыть ${master.name}`} onClick={() => go('Master')}><Icon name="arrow-up-right" size={15} /></button>
           </article>
         </div>
-        <div className="srez-focus__footer"><span className="srez-focus__hint">Покажем только то, что можно объяснить.</span><Button variant="secondary" onClick={() => go('Catalog')}>Все результаты →</Button></div>
+        <div className="srez-focus__footer"><span className="srez-focus__hint">Покажем только то, что можно объяснить.</span><Button variant="secondary" onClick={() => go('Catalog')}>Все результаты<Icon name="arrow-right" size={14} /></Button></div>
       </div>
     </section>
   );

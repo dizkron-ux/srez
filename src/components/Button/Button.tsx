@@ -9,9 +9,9 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
 
-export function Button({ variant = 'primary', size = 'sm', className = '', children, ...props }: Props) {
+export function Button({ variant = 'primary', size = 'sm', className = '', children, type = 'button', ...props }: Props) {
   return (
-    <button className={`cosmos-button cosmos-button--${variant} cosmos-button--${size} ${className}`.trim()} {...props}>
+    <button type={type} className={`cosmos-button cosmos-button--${variant} cosmos-button--${size} ${className}`.trim()} {...props}>
       {children}
     </button>
   );

@@ -1,0 +1,17 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from 'storybook/test';
+import { FocusBlock } from './FocusBlock';
+
+const meta = {
+  title: 'Components/FocusBlock',
+  component: FocusBlock,
+  parameters: { layout: 'centered' },
+  decorators: [(Story) => <div style={{width:1100,maxWidth:'96vw'}}><Story /></div>],
+  args: { go: fn() },
+} satisfies Meta<typeof FocusBlock>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+export const Mobile: Story = { parameters: { viewport: { defaultViewport: 'mobile1' } } };

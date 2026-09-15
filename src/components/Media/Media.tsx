@@ -18,5 +18,5 @@ export function Media({ index, ratioOverride, className = '' }: Props) {
     '--c': look.colors[2],
     aspectRatio: `${ratio} / 1`,
   };
-  return <div className={`preview-media ${className}`.trim()} style={style} />;
+  return <div className={`preview-media ${className}`.trim()} style={style} aria-hidden="true" />;
 }

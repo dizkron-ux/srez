@@ -1,4 +1,9 @@
-/* SREZ visual QA sweep — objective layout fixes only. */
+/* SREZ visual QA sweep — shared objective layout/state fixes only. */
+
+.srez-icon {
+  display: block;
+  flex: 0 0 auto;
+}
 
 .srez-context-line {
   display: flex;
@@ -10,6 +15,7 @@
 .srez-back {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -30,6 +36,29 @@
   transform: rotate(45deg) translateY(-1px);
   transform-origin: center;
   flex: 0 0 auto;
+}
+
+.cosmos-button:disabled,
+.cosmos-icon-button:disabled,
+.cosmos-save:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.srez-look__open,
+.srez-open-master {
+  gap: 4px;
+  align-items: center;
+}
+
+.srez-open-master {
+  display: inline-flex;
+}
+
+.srez-mini-arrow {
+  display: grid;
+  place-items: center;
 }
 
 .srez-hero h1,
@@ -59,6 +88,18 @@
 @media (max-width: 700px) {
   .srez-context-line {
     gap: 9px 12px;
+  }
+
+  .srez-nav button:nth-child(2) {
+    display: inline-flex;
+  }
+
+  .srez-nav {
+    gap: 0;
+  }
+
+  .srez-nav button {
+    padding-inline: 6px;
   }
 
   .cosmos-section-heading {
