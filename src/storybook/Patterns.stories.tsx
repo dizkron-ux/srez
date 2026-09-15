@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactNode } from 'react';
+import { useState } from 'react';
 import { userEvent, within } from 'storybook/test';
+import { CatalogFilterBar } from '../components/CatalogFilterBar/CatalogFilterBar';
+import { CatalogSearch } from '../components/CatalogSearch/CatalogSearch';
 import { FocusBlock } from '../components/FocusBlock/FocusBlock';
 import { SearchComposer } from '../components/SearchComposer/SearchComposer';
 
@@ -51,6 +54,31 @@ export const Search: Story = {
     await userEvent.type(inputs[1], 'wolf cut');
     inputs[2].focus();
   },
+};
+
+function CatalogControlsPreview() {
+  const [query, setQuery] = useState('');
+  return (
+    <div style={{ display: 'grid', gap: 24 }}>
+      <Specimen label="Selected look integrated into search">
+        <div style={{ maxWidth: 620 }}>
+          <CatalogSearch selectedLook="Mullet" query={query} onQueryChange={setQuery} onPhoto={noop} />
+        </div>
+      </Specimen>
+      <Specimen label="Dropdown filters">
+        <CatalogFilterBar />
+      </Specimen>
+    </div>
+  );
+}
+
+export const CatalogControls: Story = {
+  name: 'Catalog controls',
+  render: () => (
+    <Page title="Catalog controls" description="Экспериментальный компактный паттерн каталога по мотивам Cosmos: выбранный визуальный intent встроен в строку поиска, фильтры вынесены наверх и раскрываются через dropdown. Color picker сознательно исключён.">
+      <CatalogControlsPreview />
+    </Page>
+  ),
 };
 
 export const Focus: Story = {
