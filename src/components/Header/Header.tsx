@@ -11,7 +11,7 @@ type Props = {
 
 export function Header({ screen, saved, go, selectedLook = null }: Props) {
   const [query, setQuery] = useState('');
-  const haircutsActive = ['Home', 'Photo'].includes(screen);
+  const haircutsActive = ['Home', 'Look', 'Photo'].includes(screen);
   const mastersActive = ['Catalog', 'Master', 'Work'].includes(screen);
   const favouritesActive = screen === 'Favourites';
 
