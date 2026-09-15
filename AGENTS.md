@@ -22,6 +22,20 @@ Do not auto-run every installed design skill. A specialist skill may contribute 
 
 Use `.agents/skills/structure-lock/SKILL.md` when the user says Structure Lock, preserve structure, preserve concept, keep the current structure, or equivalent.
 
+## Optional OpenDesign specialists
+
+The project includes two explicitly-invoked OpenDesign-derived specialists:
+
+- `.agents/skills/open-design-hallmark-audit/SKILL.md` — anti-AI-slop, component-state, responsive, microinteraction, and visual QA. Default to audit; it must not change product structure.
+- `.agents/skills/open-design-editorial-taste/SKILL.md` — editorial/taste polish for typography, composition, imagery, spacing, restraint, and reducing generic marketplace/SaaS feel.
+
+Both are subordinate to `DESIGN.md`, Structure Lock, and the SREZ Design Director. Do not auto-run them merely because a prompt mentions UI or design. Invoke explicitly only when their narrow lens is useful.
+
+Recommended combinations:
+- `$srez-design-director $open-design-hallmark-audit` for visual QA / anti-slop / states / responsive checks;
+- `$srez-design-director $open-design-editorial-taste` for art direction and visual polish;
+- add `$srez-structure-lock` when approved structure must remain unchanged.
+
 ## Migration guard
 
 During fidelity migration:
