@@ -1,4 +1,4 @@
-export type Screen = 'Home' | 'Catalog' | 'Master' | 'Work' | 'Photo' | 'Favourites';
+export type Screen = 'Home' | 'Look' | 'Catalog' | 'Master' | 'Work' | 'Photo' | 'Favourites';
 
 export type Look = {
   id: string;
@@ -23,6 +23,7 @@ export type Master = {
 export type AppState = {
   screen: Screen;
   focus: boolean;
+  selectedLookId: string | null;
   city: boolean;
   showAll: boolean;
   filtersOpen: boolean;
