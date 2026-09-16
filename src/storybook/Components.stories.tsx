@@ -4,7 +4,6 @@ import { userEvent, within } from 'storybook/test';
 import { Button as ButtonComponent } from '../components/Button/Button';
 import { CityModal } from '../components/CityModal/CityModal';
 import { Evidence as EvidenceComponent } from '../components/Evidence/Evidence';
-import { Filters as FiltersComponent } from '../components/Filters/Filters';
 import { Header as HeaderComponent } from '../components/Header/Header';
 import { LookCard as LookCardComponent } from '../components/LookCard/LookCard';
 import { MasterCard as MasterCardComponent } from '../components/MasterCard/MasterCard';
@@ -120,17 +119,6 @@ export const Header: Story = {
       <Specimen label="Избранное + saved count">
         <div style={{ overflow: 'hidden', border: '1px solid var(--line)', borderRadius: 14 }}><HeaderComponent screen="Favourites" saved go={noop} /></div>
       </Specimen>
-    </Page>
-  ),
-};
-
-export const Filters: Story = {
-  render: () => (
-    <Page title="Filters" description="Продуктовый фильтр каталога. Таксономические оси остаются отдельными; состояния не дробятся на sidebar stories.">
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 280px))', gap: 28, alignItems: 'start' }}>
-        <Specimen label="Open"><FiltersComponent open /></Specimen>
-        <Specimen label="Closed"><FiltersComponent open={false} /></Specimen>
-      </div>
     </Page>
   ),
 };
