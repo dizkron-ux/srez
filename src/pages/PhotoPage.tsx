@@ -1,5 +1,4 @@
 import { Button } from '../components/Button/Button';
-import { ContextLine } from '../components/ContextLine/ContextLine';
 import { Header } from '../components/Header/Header';
 import { Media } from '../components/Media/Media';
 import type { AppState, Screen } from '../types';
