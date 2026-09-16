@@ -11,21 +11,6 @@
   flex: 0 0 auto;
 }
 
-.srez-context-line {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.srez-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
 .srez-region__city {
   display: inline-flex;
   align-items: center;
@@ -52,26 +37,13 @@
   transform: none;
 }
 
-.srez-look__open,
-.srez-open-master {
+.srez-look__open {
   gap: 4px;
   align-items: center;
 }
 
-.srez-open-master {
-  display: inline-flex;
-}
-
-.srez-mini-arrow {
-  display: grid;
-  place-items: center;
-}
-
 .srez-hero h1,
-.srez-catalog-head h1,
 .srez-photo h1,
-.srez-favs h1,
-.srez-master-hero__info h1,
 .srez-work-side h1 {
   max-width: 100%;
   min-width: 0;
@@ -92,22 +64,6 @@
 }
 
 @media (max-width: 700px) {
-  .srez-context-line {
-    gap: 9px 12px;
-  }
-
-  .srez-nav button:nth-child(2) {
-    display: inline-flex;
-  }
-
-  .srez-nav {
-    gap: 0;
-  }
-
-  .srez-nav button {
-    padding-inline: 6px;
-  }
-
   .cosmos-section-heading {
     align-items: flex-start;
     flex-wrap: wrap;
