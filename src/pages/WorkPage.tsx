@@ -36,7 +36,7 @@ export function WorkPage({ state, go }: Props) {
               <span className="cosmos-chip">Тонкие волосы</span>
             </div>
 
-            <button type="button" className="srez-source-block" onClick={() => go('Master')} aria-label={`Открыть профиль мастера ${master.name}`}>
+            <button type="button" className="srez-source-block" data-qa-ignore onClick={() => go('Master')} aria-label={`Открыть профиль мастера ${master.name}`}>
               <span className="srez-source-avatar">{master.name.slice(0, 1)}</span>
               <span className="srez-source-copy"><strong>{master.name}</strong><span>{master.place}</span></span>
               <Icon name="arrow-up-right" size={15} />
