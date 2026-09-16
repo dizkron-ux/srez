@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { CatalogPage } from '../pages/CatalogPage';
 import { FavouritesPage } from '../pages/FavouritesPage';
+import { HaircutsPage } from '../pages/HaircutsPage';
 import { HomePage } from '../pages/HomePage';
 import { LookPage } from '../pages/LookPage';
 import { MasterPage } from '../pages/MasterPage';
@@ -36,12 +37,13 @@ export function App() {
 
   const page = useMemo(() => {
     switch(state.screen) {
+      case 'Haircuts': return <HaircutsPage state={state} setState={setState} go={go} />;
       case 'Look': return <LookPage state={state} go={go} />;
       case 'Catalog': return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
       case 'Master': return <MasterPage state={state} go={go} onSave={onSave} />;
       case 'Work': return <WorkPage state={state} go={go} />;
       case 'Favourites': return <FavouritesPage state={state} go={go} onSave={onSave} />;
-      default: return <HomePage state={state} setState={setState} go={go} toast={toast} />;
+      default: return <HomePage state={state} setState={setState} go={go} toast={toast} onSave={onSave} />;
     }
   }, [state]);
 

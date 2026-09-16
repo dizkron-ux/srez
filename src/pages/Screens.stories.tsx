@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { CatalogPage } from './CatalogPage';
 import { FavouritesPage } from './FavouritesPage';
+import { HaircutsPage } from './HaircutsPage';
 import { HomePage } from './HomePage';
 import { LookPage } from './LookPage';
 import { MasterPage } from './MasterPage';
@@ -71,6 +72,8 @@ function StatefulScreen({ initial }: { initial: AppState }) {
   const onSave = () => setState(current => ({ ...current, saved: !current.saved }));
 
   switch (state.screen) {
+    case 'Haircuts':
+      return <HaircutsPage state={state} setState={setState} go={go} />;
     case 'Look':
       return <LookPage state={state} go={go} />;
     case 'Catalog':

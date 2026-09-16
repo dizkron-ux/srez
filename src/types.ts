@@ -1,4 +1,4 @@
-export type Screen = 'Home' | 'Look' | 'Catalog' | 'Master' | 'Work' | 'Photo' | 'Favourites';
+export type Screen = 'Home' | 'Haircuts' | 'Look' | 'Catalog' | 'Master' | 'Work' | 'Photo' | 'Favourites';
 
 export type Look = {
   id: string;

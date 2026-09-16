@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { LOOKS } from '../data/looks';
+import { MASTERS } from '../data/masters';
 import { Button } from '../components/Button/Button';
 import { CityModal } from '../components/CityModal/CityModal';
 import { CatalogSearch } from '../components/CatalogSearch/CatalogSearch';
 import { Header } from '../components/Header/Header';
 import { LookCard } from '../components/LookCard/LookCard';
+import { MasterCard } from '../components/MasterCard/MasterCard';
 import { RegionSelector } from '../components/RegionSelector/RegionSelector';
 import type { AppState, Screen } from '../types';
 
@@ -13,11 +15,12 @@ type Props = {
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   go: (screen: Screen) => void;
   toast: (message: string) => void;
+  onSave?: () => void;
 };
 
-export function HomePage({ state, setState, go, toast }: Props) {
+export function HomePage({ state, setState, go, toast, onSave = () => {} }: Props) {
   const [query, setQuery] = useState('');
-  const shown = state.showAll ? LOOKS : LOOKS.slice(0,8);
+  const shown = LOOKS.slice(0,4);
   const submitSearch = () => {
     go('Catalog');
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
@@ -48,10 +51,15 @@ export function HomePage({ state, setState, go, toast }: Props) {
             <span className="srez-hero-proof__label">500+ специалистов на площадке</span>
           </div>
         </section>
+        <section className="srez-section srez-home-masters">
+          <div className="srez-section-title"><div><h2>Популярные мастера</h2></div><Button variant="secondary" onClick={() => go('Catalog')}>Посмотреть все</Button></div>
+          <div className="srez-master-grid srez-home-masters__grid">
+            {MASTERS.slice(0, 3).map(master => <MasterCard master={master} saved={state.saved} onSave={onSave} go={go} mediaMode="photo" key={master.name} />)}
+          </div>
+        </section>
         <section className="srez-section">
-          <div className="srez-section-title"><div><h2>Популярные стрижки</h2></div><p>Выбери форму — покажем мастеров, чья компетенция подтверждается работами или профилем.</p></div>
+          <div className="srez-section-title"><div><h2>Популярные стрижки</h2></div><Button variant="secondary" onClick={() => go('Catalog')}>Посмотреть все</Button></div>
           <div className="srez-look-wrap"><div className="cosmos-masonry srez-look-masonry">{shown.map(look => <LookCard look={look} index={LOOKS.indexOf(look)} onOpen={onOpen} key={look.id} />)}</div></div>
-          <div className="srez-show-more"><Button variant="secondary" onClick={() => setState(s => ({...s, showAll:!s.showAll}))}>{state.showAll ? 'Показать меньше' : 'Показать ещё'}</Button></div>
         </section>
       </main>
       <CityModal open={state.city} close={() => setState(s => ({...s, city:false}))} save={() => { toast('Город сохранён для исследования'); setState(s => ({...s, city:false})); }} />

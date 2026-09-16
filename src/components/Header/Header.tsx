@@ -11,7 +11,7 @@ type Props = {
 
 export function Header({ screen, saved, go, selectedLook = null }: Props) {
   const [query, setQuery] = useState('');
-  const haircutsActive = ['Home', 'Look'].includes(screen);
+  const haircutsActive = ['Haircuts', 'Look'].includes(screen);
   const mastersActive = ['Catalog', 'Master', 'Work'].includes(screen);
   const favouritesActive = screen === 'Favourites';
 
@@ -32,7 +32,7 @@ export function Header({ screen, saved, go, selectedLook = null }: Props) {
               type="button"
               className={haircutsActive ? 'is-active' : ''}
               aria-current={haircutsActive ? 'page' : undefined}
-              onClick={() => go('Home')}
+              onClick={() => go('Haircuts')}
             >
               Стрижки
             </button>
