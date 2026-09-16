@@ -7,6 +7,12 @@ const meta = {
   title: 'Patterns/Catalog search',
   component: CatalogSearch,
   parameters: { layout: 'centered' },
+  args: {
+    selectedLook: null,
+    query: '',
+    onQueryChange: () => {},
+    onSubmit: () => {},
+  },
 } satisfies Meta<typeof CatalogSearch>;
 
 export default meta;
