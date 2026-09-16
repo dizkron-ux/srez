@@ -10,26 +10,31 @@ type Story = StoryObj<typeof meta>;
 
 const screenRows = [
   ['Home', 'default · focus · all looks · city modal'],
-  ['Catalog', 'default · filters open · saved'],
+  ['Haircut detail', 'mullet · wolf'],
+  ['Catalog', 'default · mullet · filters open · saved'],
   ['Master', 'default · saved'],
   ['Work', 'default'],
-  ['Photo', 'before analysis · analyzed · analyzed without tags'],
+  ['Photo', 'prototype-only · before analysis · analyzed · analyzed without tags'],
   ['Favourites', 'empty · saved'],
 ];
 
 const publicComponents = [
   'Button',
   'Header',
-  'Filters',
+  'Save button',
+  'Region selector',
   'Modal',
   'Look card',
   'Master card',
+  'Work card',
   'Evidence',
 ];
 
 const productPatterns = [
-  'Search composer',
-  'Featured match',
+  'Catalog search',
+  'Catalog filters',
+  'Look master selector',
+  'Catalog controls',
 ];
 
 export const Service: Story = {
@@ -48,8 +53,8 @@ export const Service: Story = {
           <strong>Foundations</strong><span>Tokens, Icons</span>
           <strong>Components</strong><span>{publicComponents.join(' · ')}</span>
           <strong>Patterns</strong><span>{productPatterns.join(' · ')}</span>
-          <strong>Screens</strong><span>Home · Catalog · Master · Work · Photo · Favourites</span>
-          <strong>Documentation</strong><span>Service specification</span>
+          <strong>Screens</strong><span>Home · Haircut detail · Catalog · Master · Work · Photo · Favourites</span>
+          <strong>Documentation</strong><span>Service specification · Component architecture audit</span>
         </div>
       </section>
 
@@ -65,7 +70,7 @@ export const Service: Story = {
             ))}
           </tbody>
         </table>
-        <p style={{ color: 'var(--stone)', fontSize: 12, marginTop: 12 }}>У каждого экрана одна sidebar page. Состояние выбирается через Controls → preset. Responsive проверяется viewport toolbar и automated visual QA.</p>
+        <p style={{ color: 'var(--stone)', fontSize: 12, marginTop: 12 }}>У каждого экрана одна sidebar page. Состояние выбирается через Controls → preset. Responsive проверяется viewport toolbar и automated visual QA. Photo пока остаётся только прототипным сценарием Storybook и не маршрутизируется текущим App.</p>
       </section>
 
       <section>
@@ -76,6 +81,7 @@ export const Service: Story = {
           <li>Implementation helpers do not get a page unless they become a stable public UI primitive.</li>
           <li>Storybook and production import the same components; no Storybook-only copies.</li>
           <li>QA breadth belongs to automated rendered checks, not navigation clutter.</li>
+          <li>Current rendered product is the source of truth during refactors; componentization must not redesign screens.</li>
         </ul>
       </section>
 
@@ -83,11 +89,12 @@ export const Service: Story = {
         <h2 style={{ fontFamily: 'var(--display)', fontSize: 30, fontWeight: 400, margin: '0 0 14px' }}>Known prototype gaps</h2>
         <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13 }}>
           <li>Search input is not connected to real filtering or ranking.</li>
-          <li>Filter checkbox/reset actions do not update result data.</li>
+          <li>Catalog filters do not update result data.</li>
           <li>Saved state is one global boolean and is not persisted.</li>
           <li>Master and Work use the first fixture instead of a selected entity id.</li>
           <li>Loading, network error, no-results, missing-evidence and media-error states are not implemented yet.</li>
-          <li>City modal does not persist the entered city or implement focus trap/Escape rules.</li>
+          <li>City modal does not persist the entered city or implement a focus trap.</li>
+          <li>Photo analysis screen is preserved as a prototype fixture but is not reachable in the current App.</li>
         </ul>
       </section>
     </div>
