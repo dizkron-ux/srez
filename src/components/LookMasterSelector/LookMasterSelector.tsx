@@ -32,7 +32,7 @@ export function LookMasterSelector({ masters, onOpenMaster }: Props) {
               </span>
               <Icon name="arrow-up-right" size={15} />
             </button>
-            <div className="srez-look-detail__portfolio" aria-hidden="true">
+            <div className="srez-look-detail__portfolio" aria-hidden="true" data-qa-ignore>
               <div className="srez-look-detail__portfolio-media">
                 {item.media.slice(0, 2).map((mediaIndex, mediaItemIndex) => (
                   <Media index={mediaIndex} ratioOverride={1.38} key={`${item.name}-${mediaItemIndex}`} />
