@@ -6,6 +6,10 @@ const meta = {
   title: 'Patterns/Look master selector',
   component: LookMasterSelector,
   parameters: { layout: 'centered' },
+  args: {
+    masters: MASTERS,
+    onOpenMaster: () => {},
+  },
 } satisfies Meta<typeof LookMasterSelector>;
 
 export default meta;
