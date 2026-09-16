@@ -1,6 +1,4 @@
 import { Button } from '../components/Button/Button';
-import { ContextLine } from '../components/ContextLine/ContextLine';
-import { Evidence } from '../components/Evidence/Evidence';
 import { Header } from '../components/Header/Header';
 import { Icon } from '../components/Icon/Icon';
 import { Media } from '../components/Media/Media';
