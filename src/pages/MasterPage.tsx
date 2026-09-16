@@ -1,15 +1,11 @@
 import { Button } from '../components/Button/Button';
 import { Header } from '../components/Header/Header';
 import { Icon } from '../components/Icon/Icon';
-import { Media } from '../components/Media/Media';
 import { SaveButton } from '../components/SaveButton/SaveButton';
+import { WorkCard } from '../components/WorkCard/WorkCard';
 import { LOOKS } from '../data/looks';
 import { MASTERS } from '../data/masters';
 import type { AppState, Screen } from '../types';
-
-function WorkCard({ index, ratio, go }: { index:number; ratio:number; go:(screen:Screen)=>void }) {
-  return <article className="srez-work-card"><button type="button" className="srez-work-card__visual" onClick={() => go('Work')}><Media index={index} ratioOverride={ratio} /></button></article>;
-}
 
 type Props = { state:AppState; go:(screen:Screen)=>void; onSave:()=>void };
 
@@ -31,7 +27,7 @@ export function MasterPage({ state, go, onSave }: Props) {
     <section className="srez-master-profile-content">
       <div className="srez-master-profile-works">
         <div className="cosmos-section-heading"><h2>Работы</h2><button type="button" className="srez-profile-filters__trigger" aria-label="Фильтры работ"><Icon name="sliders" size={18} /></button></div>
-        <div className="srez-work-grid">{[.82,1.08,.7,1.22,.94,.76,1.12,.86].map((ratio, index) => <WorkCard index={index} ratio={ratio} go={go} key={index} />)}</div>
+        <div className="srez-work-grid">{[.82,1.08,.7,1.22,.94,.76,1.12,.86].map((ratio, index) => <WorkCard index={index} ratio={ratio} onOpen={() => go('Work')} key={index} />)}</div>
       </div>
     </section>
   </main></div>;
