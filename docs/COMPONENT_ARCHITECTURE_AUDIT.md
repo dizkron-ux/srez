@@ -66,13 +66,13 @@ These should not be deleted blindly. First remove imports/references, run typech
 | CatalogFilterPill | current `CatalogFilters` renders its own option buttons and does not use this component | remove if no other consumer appears |
 | LookEntityCard | current WorkPage does not render it; its stylesheet remains globally imported | remove or restore intentionally; current state is orphaned |
 | ContextLine | imported but unused in MasterPage, FavouritesPage and PhotoPage; current screens use their own back treatments | remove stale imports and delete component if no remaining consumer |
-| Evidence | imported but unused in current MasterPage; still showcased in Storybook | decide explicitly whether evidence is still part of current Master UI; otherwise Storybook is documenting a component the product no longer renders |
+| Evidence | not consumed by any active runtime screen | retired after explicit product cleanup; proof remains a data/product concern rather than a standalone current UI component |
 | PrototypeNav | not part of current App/page composition | delete if it is no longer required for prototype QA |
 
 ## Concrete inconsistencies found
 
 1. `FavouritesPage` renders a raw `cosmos-button cosmos-button--secondary cosmos-button--sm` instead of the shared `Button` component.
-2. `MasterPage` imports `ContextLine` and `Evidence` but does not render either.
+2. `MasterPage` no longer imports the retired `ContextLine` or `Evidence` components.
 3. `FavouritesPage` imports `ContextLine` but does not render it.
 4. `PhotoPage` imports `ContextLine` but does not render it.
 5. `LookEntityCard` has a dedicated global stylesheet even though the current Work page no longer consumes the component.
@@ -101,7 +101,6 @@ Components
   City modal
   Look card
   Master card
-  Evidence (only if still in current product scope)
 
 Patterns
   Catalog search

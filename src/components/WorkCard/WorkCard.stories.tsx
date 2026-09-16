@@ -1,26 +1,36 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { WorkCard } from './WorkCard';
+import { WorkCard as WorkCardComponent } from './WorkCard';
+import { Specimen, SpecimenGrid, StateMatrix, StoryPage, StorySection } from '../../storybook/StoryPage';
 
 const meta = {
-  title: 'Components/Work card',
-  component: WorkCard,
-  parameters: { layout: 'centered' },
-  args: {
-    index: 0,
-    ratio: 1,
-    onOpen: () => {},
-  },
-} satisfies Meta<typeof WorkCard>;
+  title: 'Components',
+  component: WorkCardComponent,
+  parameters: { layout: 'fullscreen' },
+  args: { index: 0, ratio: 1, onOpen: () => {} },
+} satisfies Meta<typeof WorkCardComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Ratios: Story = {
+export const WorkCard: Story = {
+  name: 'Work card',
   render: () => (
-    <div style={{ width: 'min(900px, calc(100vw - 48px))', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 16, alignItems: 'start' }}>
-      <WorkCard index={0} ratio={0.82} onOpen={() => {}} />
-      <WorkCard index={1} ratio={1.08} onOpen={() => {}} />
-      <WorkCard index={2} ratio={0.7} onOpen={() => {}} />
-    </div>
+    <StoryPage title="Work card" description="Минимальная карточка portfolio work. Она не объединена с Look card: это доказательство работы мастера, а не результат для навигации по каталогу.">
+      <StorySection title="Aspect variants">
+        <SpecimenGrid min={200}>
+          <Specimen label="Portrait"><WorkCardComponent index={0} ratio={0.7} onOpen={() => {}} /></Specimen>
+          <Specimen label="Regular"><WorkCardComponent index={1} ratio={0.82} onOpen={() => {}} /></Specimen>
+          <Specimen label="Landscape"><WorkCardComponent index={2} ratio={1.08} onOpen={() => {}} /></Specimen>
+        </SpecimenGrid>
+      </StorySection>
+
+      <StateMatrix coverage={{
+        default: 'Regular portfolio fixture',
+        hover: 'Lift and shadow on the work visual',
+        focus: 'The visual is a keyboard-focusable button',
+        active: 'Native pressed interaction',
+        sizes: 'Portrait / regular / landscape content ratios',
+      }} />
+    </StoryPage>
   ),
 };

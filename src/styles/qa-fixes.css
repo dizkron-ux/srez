@@ -54,6 +54,26 @@
   gap: 12px;
 }
 
+.srez-hero-proof {
+  min-height: 38px;
+}
+
+@media (max-width: 700px) {
+  .srez-hero-proof {
+    gap: 10px;
+  }
+
+  .srez-hero-proof__avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .srez-hero-proof__label {
+    font-size: 14px;
+  }
+}
+
 .cosmos-section-heading > * {
   min-width: 0;
 }

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { CatalogFilters } from '../components/CatalogFilters/CatalogFilters';
 import { CatalogSearch } from '../components/CatalogSearch/CatalogSearch';
+import { Specimen, StateMatrix, StoryPage, StorySection } from './StoryPage';
 
 const meta = {
   title: 'Patterns',
@@ -11,28 +11,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-function Page({ title, description, children }: { title: string; description: string; children: ReactNode }) {
-  return (
-    <div style={{ maxWidth: 1180, margin: '0 auto', padding: '40px 28px 72px' }}>
-      <div style={{ marginBottom: 34 }}>
-        <div className="srez-eyebrow">PRODUCT PATTERN</div>
-        <h1 style={{ margin: '8px 0 10px', fontFamily: 'var(--display)', fontSize: 48, fontWeight: 400, letterSpacing: '-.045em' }}>{title}</h1>
-        <p style={{ maxWidth: 760, margin: 0, color: 'var(--stone)', fontSize: 13, lineHeight: 1.6 }}>{description}</p>
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function Specimen({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div style={{ display: 'grid', gap: 8 }}>
-      <span style={{ color: 'var(--pebble)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '.08em' }}>{label}</span>
-      {children}
-    </div>
-  );
-}
 
 function CatalogControlsPreview() {
   const [query, setQuery] = useState('');
@@ -55,8 +33,18 @@ function CatalogControlsPreview() {
 export const CatalogControls: Story = {
   name: 'Catalog controls',
   render: () => (
-    <Page title="Catalog controls" description="Интеграционный паттерн текущего каталога: выбранный intent встроен в поиск, фото добавляется прямо в строку, а фильтры собраны в одну control-кнопку у списка мастеров.">
-      <CatalogControlsPreview />
-    </Page>
+    <StoryPage kind="Product pattern" title="Catalog controls" description="Интеграционный паттерн текущего каталога: выбранный intent встроен в поиск, фото добавляется прямо в строку, а фильтры собраны в одну control-кнопку у списка мастеров.">
+      <StorySection title="Composition"><CatalogControlsPreview /></StorySection>
+      <StateMatrix coverage={{
+        default: 'Contextual search + compact filter trigger',
+        hover: 'Inherited from Catalog search and Catalog filters',
+        focus: 'Keyboard path spans search, photo action and filters',
+        active: 'Search photo panel and filter popover are independently expandable',
+        selected: 'Selected haircut context and selected filter count',
+        empty: 'Empty query remains actionable',
+        overflow: 'Child patterns own token, query and option overflow',
+        sizes: 'Responsive composition at the same Storybook path',
+      }} />
+    </StoryPage>
   ),
 };

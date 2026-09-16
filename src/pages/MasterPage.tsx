@@ -1,6 +1,6 @@
 import { Button } from '../components/Button/Button';
 import { Header } from '../components/Header/Header';
-import { Icon } from '../components/Icon/Icon';
+import { IconButton } from '../components/IconButton/IconButton';
 import { SaveButton } from '../components/SaveButton/SaveButton';
 import { WorkCard } from '../components/WorkCard/WorkCard';
 import { LOOKS } from '../data/looks';
@@ -20,13 +20,13 @@ export function MasterPage({ state, go, onSave }: Props) {
           <h1>{master.name}</h1>
           <span>{master.place}</span>
         </div>
-        <div className="srez-master-profile-actions"><Button>Перейти к записи</Button><SaveButton saved={state.saved} onClick={onSave} /><button type="button" className="srez-profile-share__trigger" aria-label="Поделиться профилем"><Icon name="share" size={18} /></button></div>
+        <div className="srez-master-profile-actions"><Button>Перейти к записи</Button><SaveButton saved={state.saved} onClick={onSave} /><IconButton icon="share" iconSize={18} aria-label="Поделиться профилем" className="srez-profile-share__trigger" /></div>
       </div>
     </section>
 
     <section className="srez-master-profile-content">
       <div className="srez-master-profile-works">
-        <div className="cosmos-section-heading"><h2>Работы</h2><button type="button" className="srez-profile-filters__trigger" aria-label="Фильтры работ"><Icon name="sliders" size={18} /></button></div>
+        <div className="cosmos-section-heading"><h2>Работы</h2><IconButton icon="sliders" iconSize={18} aria-label="Фильтры работ" className="srez-profile-filters__trigger" /></div>
         <div className="srez-work-grid">{[.82,1.08,.7,1.22,.94,.76,1.12,.86].map((ratio, index) => <WorkCard index={index} ratio={ratio} onOpen={() => go('Work')} key={index} />)}</div>
       </div>
     </section>

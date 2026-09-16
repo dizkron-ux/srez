@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { DragEvent, FormEvent } from 'react';
+import { Button } from '../Button/Button';
 import { Icon } from '../Icon/Icon';
+import { IconButton } from '../IconButton/IconButton';
 import { Media } from '../Media/Media';
 
 const PHRASES = [
@@ -100,7 +102,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
           <div className="srez-catalog-search__photo-token">
             <img src={photo.url} alt="" />
             <span>По фото</span>
-            <button type="button" onClick={removePhoto} aria-label="Убрать фото из поиска"><Icon name="close" size={12} /></button>
+            <IconButton icon="close" iconSize={12} size="sm" variant="ghost" aria-label="Убрать фото из поиска" onClick={removePhoto} />
           </div>
         ) : null}
       </div>
@@ -121,15 +123,16 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
         ) : null}
       </div>
 
-      <button
-        type="button"
+      <IconButton
+        icon="image"
+        iconSize={18}
+        size="md"
+        variant="ghost"
+        aria-label="Найти по фотографии"
         className={`srez-catalog-search__icon ${photoOpen ? 'is-active' : ''}`}
         onClick={() => setPhotoOpen(value => !value)}
-        aria-label="Найти по фотографии"
         aria-expanded={photoOpen}
-      >
-        <Icon name="image" size={18} />
-      </button>
+      />
 
       {photoOpen ? (
         <div className="srez-catalog-search__visual-panel">
@@ -138,7 +141,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
               <strong>Поиск по фото</strong>
               <span>{selectedLook ? `Фото можно сочетать с ${selectedLook}` : 'Добавь референс — поиск останется в этой строке'}</span>
             </div>
-            <button type="button" onClick={() => setPhotoOpen(false)} aria-label="Закрыть"><Icon name="close" size={15} /></button>
+            <IconButton icon="close" iconSize={15} size="md" variant="ghost" aria-label="Закрыть" onClick={() => setPhotoOpen(false)} />
           </div>
           <div
             className={`srez-catalog-search__dropzone ${dragActive ? 'is-dragging' : ''}`}
@@ -150,7 +153,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
             <Icon name="image" size={20} />
             <strong>Перетащи изображение сюда</strong>
             <span>или выбери файл с устройства</span>
-            <button type="button" onClick={() => fileInputRef.current?.click()}>Выбрать фото</button>
+            <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>Выбрать фото</Button>
           </div>
           <input
             ref={fileInputRef}

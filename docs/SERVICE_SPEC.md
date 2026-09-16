@@ -102,20 +102,14 @@ Current data: hard-coded to first look and first master.
 Missing states: zero matching masters, multiple matches, missing description/fit, long master list.
 
 ### MasterCard
-Anatomy: collage, name/place, SaveButton, Evidence, prototype disclaimer, open-master action.
+Anatomy: collage, name/place, SaveButton and prototype disclaimer.
 States: default, saved, alternate master, long content, media hover, save focus, narrow/mobile.
-Rules: evidence stays readable without opening profile; missing data must not be disguised; collage images are explicitly placeholders in V3.
+Rules: missing data must not be disguised; collage images are explicitly placeholders in V3.
 
 ### SaveButton
 States: default, saved, hover, focus, disabled. Uses `aria-pressed`.
 Current copy remains `Save/Saved` for fidelity to V3; copy localization is a separate content decision.
 Current behaviour limitation: one global saved boolean affects all master cards.
-
-### Evidence
-Purpose: explain why a master matches.
-Anatomy: section header with proof count + proof rows (label/detail).
-States: default, alternate data, long content.
-Missing states: zero proof, partial/unverified proof, source unavailable. These require product rules before implementation.
 
 ### Filters
 Groups currently rendered: haircut; hair type; desired length; style; proof; where/price.

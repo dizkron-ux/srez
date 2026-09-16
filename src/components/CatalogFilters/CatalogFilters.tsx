@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Icon } from '../Icon/Icon';
+import { Button } from '../Button/Button';
+import { IconButton } from '../IconButton/IconButton';
 
 type Group = {
   id: string;
@@ -61,15 +62,14 @@ export function CatalogFilters({ initialOpen = false }: Props) {
 
   return (
     <div className="srez-catalog-filters" ref={rootRef}>
-      <button
-        type="button"
-        className={`srez-catalog-filters__trigger ${selectedCount ? 'is-active' : ''}`}
+      <IconButton
+        icon="sliders"
+        iconSize={18}
         aria-label={selectedCount ? `Фильтры, выбрано ${selectedCount}` : 'Фильтры'}
+        className={`srez-catalog-filters__trigger ${selectedCount ? 'is-active' : ''}`}
         aria-expanded={open}
         onClick={() => setOpen(value => !value)}
-      >
-        <Icon name="sliders" size={18} />
-      </button>
+      />
 
       {open ? (
         <div className="srez-catalog-filters__popover" role="dialog" aria-label="Фильтры мастеров">
@@ -105,7 +105,7 @@ export function CatalogFilters({ initialOpen = false }: Props) {
             })}
           </div>
 
-          <button type="button" className="srez-catalog-filters__done" onClick={() => setOpen(false)}>Готово</button>
+          <Button className="srez-catalog-filters__done" size="md" onClick={() => setOpen(false)}>Готово</Button>
         </div>
       ) : null}
     </div>

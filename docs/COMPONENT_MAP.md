@@ -24,7 +24,6 @@ The rendered product remains source of truth. Classification below describes cod
 | LookCard | `src/components/LookCard/LookCard.tsx` | Home | `Components / Look card` |
 | MasterCard | `src/components/MasterCard/MasterCard.tsx` | Catalog, Favourites | `Components / Master card` |
 | WorkCard | `src/components/WorkCard/WorkCard.tsx` | Master | `Components / Work card` |
-| Evidence | `src/components/Evidence/Evidence.tsx` | currently not mounted in active runtime screens | `Components / Evidence` |
 
 ## Product patterns
 
@@ -72,6 +71,7 @@ The following older or orphaned implementations were removed during the cleanup 
 - `LookEntityCard`
 - `ContextLine`
 - `PrototypeNav`
+- standalone `Evidence` table
 - orphaned `look-entity-card.css`
 
 ## Rule for future local/Codex edits

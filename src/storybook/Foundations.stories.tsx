@@ -28,6 +28,8 @@ const iconNames: IconName[] = [
   'heart-filled',
   'close',
   'chevron-down',
+  'sliders',
+  'share',
 ];
 
 export const Tokens: Story = {

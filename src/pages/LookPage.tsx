@@ -1,5 +1,6 @@
+import { Button } from '../components/Button/Button';
 import { Header } from '../components/Header/Header';
-import { Icon } from '../components/Icon/Icon';
+import { IconButton } from '../components/IconButton/IconButton';
 import { LookMasterSelector } from '../components/LookMasterSelector/LookMasterSelector';
 import { Media } from '../components/Media/Media';
 import { LOOKS } from '../data/looks';
@@ -21,9 +22,7 @@ export function LookPage({ state, go }: Props) {
 
       <main className="srez-look-detail">
         <section className="srez-look-detail__stage" aria-label={`Стрижка ${look.name}`}>
-          <button type="button" className="srez-look-detail__back" onClick={() => go('Home')} aria-label="Назад к стрижкам">
-            <Icon name="arrow-left" size={18} />
-          </button>
+          <IconButton icon="arrow-left" iconSize={18} aria-label="Назад к стрижкам" className="srez-look-detail__back" onClick={() => go('Home')} />
 
           <div className="srez-look-detail__visual-wrap">
             <div className="srez-look-detail__visual">
@@ -42,7 +41,7 @@ export function LookPage({ state, go }: Props) {
           <LookMasterSelector masters={MASTERS} onOpenMaster={() => go('Master')} />
 
           <div className="srez-look-detail__cta">
-            <button type="button" onClick={() => go('Catalog')}>Найти мастера</button>
+            <Button size="md" onClick={() => go('Catalog')}>Найти мастера</Button>
           </div>
         </aside>
       </main>

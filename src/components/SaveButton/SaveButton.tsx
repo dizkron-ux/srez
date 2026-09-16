@@ -1,4 +1,4 @@
-import { Icon } from '../Icon/Icon';
+import { IconButton } from '../IconButton/IconButton';
 
 type Props = {
   saved: boolean;
@@ -8,16 +8,15 @@ type Props = {
 
 export function SaveButton({ saved, onClick, disabled = false }: Props) {
   return (
-    <button
-      type="button"
+    <IconButton
+      icon={saved ? 'heart-filled' : 'heart'}
+      iconSize={14}
+      aria-label={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
+      selected={saved}
       className={`cosmos-save ${saved ? 'is-saved' : ''}`}
       onClick={onClick}
-      aria-pressed={saved}
-      aria-label={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
       title={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
       disabled={disabled}
-    >
-      <Icon name={saved ? 'heart-filled' : 'heart'} size={14} />
-    </button>
+    />
   );
 }

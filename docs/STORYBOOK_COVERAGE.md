@@ -26,7 +26,6 @@ Exhaustive breakpoint/state coverage remains in automated visual QA.
 | Components | Look card | multiple real look fixtures · interactive hover/focus | entity-specific open behaviour 🟡 |
 | Components | Master card | default · saved · long-content stress | entity-specific saved state 🟡 |
 | Components | Work card | representative image ratios | selected work entity id 🟡 |
-| Components | Evidence | default · alternate · long-content stress | currently not mounted on active runtime screens 🟡 |
 | Patterns | Catalog search | default · selected look · photo panel | real search/ranking/upload backend 🟡 |
 | Patterns | Catalog filters | closed · open · current selected defaults | result filtering wiring 🟡 |
 | Patterns | Look master selector | master list · active/hover portfolio | selected master entity routing 🟡 |

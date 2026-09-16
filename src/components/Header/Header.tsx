@@ -22,7 +22,7 @@ export function Header({ screen, saved, go, selectedLook = null }: Props) {
 
   return (
     <header className="srez-app-header">
-      <div className="srez-app-header__inner">
+      <div className={`srez-app-header__inner ${screen === 'Home' ? 'is-home' : ''}`}>
         <div className="srez-app-header__left">
           <button type="button" className="srez-app-header__brand" onClick={() => go('Home')} aria-label="На главную СРЕЗ">
             СРЕЗ.
@@ -47,14 +47,16 @@ export function Header({ screen, saved, go, selectedLook = null }: Props) {
           </nav>
         </div>
 
-        <div className="srez-app-header__search">
-          <CatalogSearch
-            selectedLook={selectedLook}
-            query={query}
-            onQueryChange={setQuery}
-            onSubmit={submitSearch}
-          />
-        </div>
+        {screen !== 'Home' ? (
+          <div className="srez-app-header__search">
+            <CatalogSearch
+              selectedLook={selectedLook}
+              query={query}
+              onQueryChange={setQuery}
+              onSubmit={submitSearch}
+            />
+          </div>
+        ) : null}
 
         <div className="srez-app-header__right">
           <button

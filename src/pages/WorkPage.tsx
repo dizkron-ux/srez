@@ -1,6 +1,7 @@
 import { Button } from '../components/Button/Button';
 import { Header } from '../components/Header/Header';
 import { Icon } from '../components/Icon/Icon';
+import { IconButton } from '../components/IconButton/IconButton';
 import { Media } from '../components/Media/Media';
 import { LOOKS } from '../data/looks';
 import { MASTERS } from '../data/masters';
@@ -18,9 +19,7 @@ export function WorkPage({ state, go }: Props) {
       <main className="srez-shell">
         <div className="srez-work-detail">
           <section className="srez-work-detail__stage" aria-label={`Работа мастера по стрижке ${look.name}`}>
-            <button type="button" className="srez-work-detail__back" onClick={() => go('Master')} aria-label="Назад к мастеру">
-              <Icon name="arrow-left" size={18} />
-            </button>
+            <IconButton icon="arrow-left" iconSize={18} aria-label="Назад к мастеру" className="srez-work-detail__back" onClick={() => go('Master')} />
             <div className="srez-work-detail__visual">
               <Media index={0} ratioOverride={0.72} />
             </div>
