@@ -1,6 +1,0 @@
-.srez-look-entity-card{width:100%;display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line-soft);border-radius:14px;background:#fff;color:var(--ink);text-align:left;cursor:pointer;transition:.15s var(--ease)}
-.srez-look-entity-card:hover,.srez-look-entity-card:focus-visible{background:#f7f6f3;border-color:rgba(13,13,13,.14);outline:none}
-.srez-look-entity-card__media{width:54px;height:54px;overflow:hidden;border-radius:10px;background:#e9e6df}.srez-look-entity-card__media .preview-media{width:100%;height:100%;aspect-ratio:auto!important;border-radius:0}
-.srez-look-entity-card__copy{min-width:0;display:grid;gap:3px}.srez-look-entity-card__copy strong{font-size:12.5px}.srez-look-entity-card__copy span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;color:var(--stone);font-size:10.5px;line-height:1.4}.srez-look-entity-card>.srez-icon{color:var(--pebble)}
-.srez-work-related{display:grid;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
-.srez-work-related{border-top:0!important}
