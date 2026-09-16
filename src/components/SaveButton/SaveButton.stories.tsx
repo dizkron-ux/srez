@@ -6,6 +6,10 @@ const meta = {
   title: 'Components/Save button',
   component: SaveButton,
   parameters: { layout: 'centered' },
+  args: {
+    saved: false,
+    onClick: () => {},
+  },
 } satisfies Meta<typeof SaveButton>;
 
 export default meta;
