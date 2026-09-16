@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>;
 const screenRows = [
   ['Home', 'default · focus · all looks · city modal'],
   ['Haircut detail', 'mullet · wolf'],
-  ['Catalog', 'default · mullet · filters open · saved'],
+  ['Catalog', 'default · mullet · filters open'],
   ['Master', 'default · saved'],
   ['Work', 'default'],
   ['Photo', 'prototype-only · before analysis · analyzed · analyzed without tags'],
@@ -34,12 +34,13 @@ const componentRows = [
   ['Header', 'Haircuts · Masters · Favourites · selected look', 'default · current section · saved count · responsive', 'All product screens', 'Components / Header'],
   ['Modal', 'City modal composition', 'open · empty input · focus · responsive', 'Home / RegionSelector', 'Components / Modal'],
   ['Look card', 'Product fixtures', 'default · hover · focus · long label · responsive', 'Home', 'Components / Look card'],
-  ['Master card', 'Product fixtures', 'default · hover · focus · saved · long content · responsive', 'Catalog · Favourites', 'Components / Master card'],
+  ['Master card', 'Product fixtures', 'default · hover · focus · saved · long content · responsive', 'Home · Favourites', 'Components / Master card'],
   ['Work card', 'portrait · regular · landscape ratios', 'default · hover · focus · responsive', 'Master', 'Components / Work card'],
   ['Catalog search', 'empty · selected look · long query · photo panel', 'hover · focus · expanded · responsive', 'Header', 'Patterns / Catalog search'],
   ['Catalog filters', 'closed · open · grouped options', 'hover · focus · selected · reset/empty · responsive', 'Catalog', 'Patterns / Catalog filters'],
   ['Look master selector', 'default · long identity', 'hover · focus · selected · overflow · responsive', 'Haircut detail', 'Patterns / Look master selector'],
   ['Catalog controls', 'search + filters composition', 'child pattern states · responsive', 'Catalog', 'Patterns / Catalog controls'],
+  ['Master collections', 'haircut types · three-image previews · master counts', 'hover · focus · selected · drag · responsive', 'Catalog', 'Patterns / Master collections'],
 ];
 
 const internalRows = [
@@ -54,6 +55,7 @@ const productPatterns = [
   'Catalog filters',
   'Look master selector',
   'Catalog controls',
+  'Master collections',
 ];
 
 export const Service: Story = {

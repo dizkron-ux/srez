@@ -30,6 +30,7 @@ Exhaustive breakpoint/state coverage remains in automated visual QA.
 | Patterns | Catalog filters | closed · open · current selected defaults | result filtering wiring 🟡 |
 | Patterns | Look master selector | master list · active/hover portfolio | selected master entity routing 🟡 |
 | Patterns | Catalog controls | integrated search + filter composition | real catalog data wiring 🟡 |
+| Patterns | Master collections | haircut groups · hover/focus · selected · drag/scroll · responsive | collection selection does not yet filter a backend result set 🟡 |
 | Screens | Home | preset control | see state matrix below |
 | Screens | Haircut detail | look preset control | selected-master/entity routing 🟡 |
 | Screens | Catalog | preset control | see state matrix below |
@@ -47,7 +48,7 @@ Each screen has one visible sidebar page. Use `Controls → preset` to switch me
 |---|---|
 | Home | default · focus · all-looks · city-modal |
 | Haircut detail | mullet · wolf |
-| Catalog | default · mullet · filters-open · saved |
+| Catalog | default · mullet · filters-open |
 | Master | default · saved |
 | Work | default |
 | Photo | default · analyzed · analyzed-no-tags |
@@ -63,7 +64,7 @@ These remain production code but do not receive dedicated public Storybook pages
 - low-level `Icon` implementation (covered through Foundations/Icons);
 - screen-local empty states, back buttons, tag rows and layout wrappers.
 
-Promote a helper only when it becomes a stable independently meaningful UI contract. Current examples of promoted pieces are `SaveButton`, `WorkCard`, `CatalogSearch`, `CatalogFilters` and `LookMasterSelector`.
+Promote a helper only when it becomes a stable independently meaningful UI contract. Current examples of promoted pieces are `SaveButton`, `WorkCard`, `CatalogSearch`, `CatalogFilters`, `LookMasterSelector` and `MasterCollectionCarousel`.
 
 ## Retired legacy implementations
 

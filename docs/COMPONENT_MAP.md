@@ -22,7 +22,7 @@ The rendered product remains source of truth. Classification below describes cod
 | RegionSelector | `src/components/RegionSelector/RegionSelector.tsx` | Home | `Components / Region selector` |
 | CityModal | `src/components/CityModal/CityModal.tsx` | Home | `Components / Modal` |
 | LookCard | `src/components/LookCard/LookCard.tsx` | Home | `Components / Look card` |
-| MasterCard | `src/components/MasterCard/MasterCard.tsx` | Catalog, Favourites | `Components / Master card` |
+| MasterCard | `src/components/MasterCard/MasterCard.tsx` | Home, Favourites | `Components / Master card` |
 | WorkCard | `src/components/WorkCard/WorkCard.tsx` | Master | `Components / Work card` |
 
 ## Product patterns
@@ -33,6 +33,7 @@ The rendered product remains source of truth. Classification below describes cod
 | Catalog filters | `src/components/CatalogFilters/CatalogFilters.tsx` | Catalog | `Patterns / Catalog filters` |
 | Look master selector | `src/components/LookMasterSelector/LookMasterSelector.tsx` | Look | `Patterns / Look master selector` |
 | Catalog controls composition | CatalogSearch + CatalogFilters | Catalog | `Patterns / Catalog controls` |
+| Master collections | `src/components/MasterCollectionCarousel/MasterCollectionCarousel.tsx` | Catalog | `Patterns / Master collections` |
 
 ## Screen-only composition
 
@@ -42,7 +43,6 @@ These are intentionally not extracted merely to make the component count larger.
 |---|---|
 | Home look-grid layout and show-more composition | `HomePage.tsx` |
 | Look visual stage, back action, CTA and similar-looks section | `LookPage.tsx` |
-| Catalog results composition | `CatalogPage.tsx` |
 | Master identity/actions and works layout | `MasterPage.tsx` |
 | Work source/master block and tag composition | `WorkPage.tsx` |
 | Favourites empty state | `FavouritesPage.tsx` |

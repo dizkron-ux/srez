@@ -39,7 +39,7 @@ export function App() {
     switch(state.screen) {
       case 'Haircuts': return <HaircutsPage state={state} setState={setState} go={go} />;
       case 'Look': return <LookPage state={state} go={go} />;
-      case 'Catalog': return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
+      case 'Catalog': return <CatalogPage state={state} setState={setState} go={go} />;
       case 'Master': return <MasterPage state={state} go={go} onSave={onSave} />;
       case 'Work': return <WorkPage state={state} go={go} />;
       case 'Favourites': return <FavouritesPage state={state} go={go} onSave={onSave} />;

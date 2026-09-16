@@ -50,7 +50,6 @@ function stateFor(screen: Screen, preset: string): AppState {
 
   if (screen === 'Catalog') {
     if (preset === 'filters-open') state.filtersOpen = true;
-    if (preset === 'saved') state.saved = true;
     if (preset === 'mullet') state.selectedLookId = 'mullet';
   }
 
@@ -77,7 +76,7 @@ function StatefulScreen({ initial }: { initial: AppState }) {
     case 'Look':
       return <LookPage state={state} go={go} />;
     case 'Catalog':
-      return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
+      return <CatalogPage state={state} setState={setState} go={go} />;
     case 'Master':
       return <MasterPage state={state} go={go} onSave={onSave} />;
     case 'Work':
@@ -125,7 +124,7 @@ export const Catalog: Story = {
   argTypes: {
     preset: {
       control: 'select',
-      options: ['default', 'mullet', 'filters-open', 'saved'],
+      options: ['default', 'mullet', 'filters-open'],
       description: 'State preset',
     },
   },

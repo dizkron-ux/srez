@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-export type IconName = 'search' | 'image' | 'arrow-right' | 'arrow-left' | 'arrow-up-right' | 'heart' | 'heart-filled' | 'close' | 'chevron-down' | 'sliders' | 'share';
+export type IconName = 'search' | 'image' | 'home' | 'grid' | 'users' | 'arrow-right' | 'arrow-left' | 'arrow-up-right' | 'heart' | 'heart-filled' | 'close' | 'chevron-down' | 'sliders' | 'share';
 
 type Props = Omit<SVGProps<SVGSVGElement>, 'name'> & {
   name: IconName;
@@ -22,6 +22,9 @@ export function Icon({ name, size = 16, className = '', ...props }: Props) {
   const body = {
     search: <><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.25 4.25"/></>,
     image: <><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><circle cx="9" cy="9" r="1.5"/><path d="m5.5 17 4.2-4.2 3.2 3.2 2.1-2.1 3.5 3.1"/></>,
+    home: <><path d="m3 10 9-7 9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></>,
+    grid: <><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></>,
+    users: <><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.5-3.2 2.3-5 5.5-5s5 1.8 5.5 5"/><path d="M16 5.5a2.5 2.5 0 0 1 0 5M17 14c2.1.5 3.3 2.1 3.5 4"/></>,
     'arrow-right': <><path d="M5 12h13"/><path d="m14 7 5 5-5 5"/></>,
     'arrow-left': <><path d="M19 12H6"/><path d="m10 7-5 5 5 5"/></>,
     'arrow-up-right': <><path d="M7 17 17 7"/><path d="M9 7h8v8"/></>,

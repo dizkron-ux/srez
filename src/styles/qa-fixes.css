@@ -62,13 +62,67 @@
   padding-top: 0;
 }
 
-.srez-haircuts-page .srez-section-title h1 {
+.srez-page-head {
+  padding-top: 34px;
+  padding-bottom: 22px;
+}
+
+h1.srez-page-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: .95;
-  letter-spacing: -.055em;
-  font-weight: 350;
+  font-size: 38px;
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 380;
+}
+
+.srez-haircuts-page {
+  padding-top: 0;
+}
+
+.srez-haircuts-page > .srez-page-head {
+  margin-bottom: 0;
+}
+
+.srez-master-profile-head {
+  padding-top: 0;
+}
+
+.srez-master-profile-identity.srez-page-head {
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 80px auto;
+}
+
+.srez-cosmos-catalog__intro.srez-page-head {
+  align-items: flex-start;
+}
+
+.srez-master-profile-avatar {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.srez-master-profile-copy {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.srez-master-profile-actions {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  padding-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .srez-master-profile-identity.srez-page-head {
+    grid-template-columns: minmax(0, 1fr) 64px;
+  }
+
+  .srez-master-profile-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }
 
 .srez-home-masters__grid {
@@ -130,6 +184,21 @@
   }
 }
 
+@media (max-width: 620px) {
+  .srez-page-head {
+    padding-top: 26px;
+    padding-bottom: 18px;
+  }
+
+  h1.srez-page-title {
+    font-size: 34px;
+  }
+
+  .srez-master-profile-identity.srez-page-head {
+    grid-template-columns: minmax(0, 1fr) 52px;
+  }
+}
+
 .cosmos-section-heading > * {
   min-width: 0;
 }
@@ -143,5 +212,24 @@
   .cosmos-section-heading {
     align-items: flex-start;
     flex-wrap: wrap;
+  }
+}
+
+/* Cosmos-like structural dividers for split detail screens. */
+.srez-look-detail,
+.srez-work-detail {
+  border-bottom: 1px solid var(--line-soft) !important;
+}
+
+.srez-look-detail__rail,
+.srez-work-side {
+  border-left: 1px solid var(--line-soft);
+}
+
+@media (max-width: 900px) {
+  .srez-look-detail__rail,
+  .srez-work-side {
+    border-left: 0;
+    border-top: 1px solid var(--line-soft);
   }
 }

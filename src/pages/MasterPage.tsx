@@ -14,10 +14,10 @@ export function MasterPage({ state, go, onSave }: Props) {
   const selectedLook = LOOKS.find(look => look.id === state.selectedLookId)?.name ?? null;
   return <div className="srez-app srez-master-profile-page"><Header screen={state.screen} saved={state.saved} go={go} selectedLook={selectedLook} /><main className="srez-shell">
     <section className="srez-master-profile-head">
-      <div className="srez-master-profile-identity">
+      <div className="srez-master-profile-identity srez-page-head">
         <div className="srez-master-profile-avatar">{master.name.slice(0, 1)}</div>
         <div className="srez-master-profile-copy">
-          <h1>{master.name}</h1>
+          <h1 className="srez-page-title">{master.name}</h1>
           <span>{master.place}</span>
         </div>
         <div className="srez-master-profile-actions"><Button>Перейти к записи</Button><SaveButton saved={state.saved} onClick={onSave} /><IconButton icon="share" iconSize={18} aria-label="Поделиться профилем" className="srez-profile-share__trigger" /></div>

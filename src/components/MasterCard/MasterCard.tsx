@@ -38,7 +38,6 @@ export function MasterCard({ master, saved, onSave, go, mediaMode = 'collage' }:
 
   return (
     <article className="srez-master-card">
-      {!isPhotoMode ? textBlock : null}
       {isPhotoMode ? (
         <div
           className="srez-master-card__visual srez-master-card__visual--photo"
@@ -58,7 +57,7 @@ export function MasterCard({ master, saved, onSave, go, mediaMode = 'collage' }:
           <div className="cosmos-collage">{master.media.slice(0,4).map((index, i) => <Media index={index} ratioOverride={1} key={`${index}-${i}`} />)}</div>
         </button>
       )}
-      {isPhotoMode ? textBlock : null}
+      {textBlock}
     </article>
   );
 }

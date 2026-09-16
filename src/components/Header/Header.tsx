@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import type { Screen } from '../../types';
-import { CatalogSearch } from '../CatalogSearch/CatalogSearch';
+import { Icon } from '../Icon/Icon';
 
 type Props = {
   screen: Screen;
@@ -10,15 +9,9 @@ type Props = {
 };
 
 export function Header({ screen, saved, go, selectedLook = null }: Props) {
-  const [query, setQuery] = useState('');
   const haircutsActive = ['Haircuts', 'Look'].includes(screen);
   const mastersActive = ['Catalog', 'Master', 'Work'].includes(screen);
   const favouritesActive = screen === 'Favourites';
-
-  const submitSearch = () => {
-    if (screen !== 'Catalog') go('Catalog');
-    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-  };
 
   return (
     <header className="srez-app-header">
@@ -30,43 +23,48 @@ export function Header({ screen, saved, go, selectedLook = null }: Props) {
           <nav className="srez-app-header__nav" aria-label="Основная навигация">
             <button
               type="button"
+              className={screen === 'Home' ? 'is-active' : ''}
+              aria-current={screen === 'Home' ? 'page' : undefined}
+              aria-label="Главная"
+              title="Главная"
+              onClick={() => go('Home')}
+            >
+              <Icon name="home" size={21} />
+            </button>
+            <button
+              type="button"
               className={haircutsActive ? 'is-active' : ''}
               aria-current={haircutsActive ? 'page' : undefined}
+              aria-label="Стрижки"
+              title="Стрижки"
               onClick={() => go('Haircuts')}
             >
-              Стрижки
+              <Icon name="grid" size={21} />
             </button>
             <button
               type="button"
               className={mastersActive ? 'is-active' : ''}
               aria-current={mastersActive ? 'page' : undefined}
+              aria-label="Мастера"
+              title="Мастера"
               onClick={() => go('Catalog')}
             >
-              Мастера
+              <Icon name="users" size={21} />
             </button>
           </nav>
         </div>
-
-        {screen !== 'Home' ? (
-          <div className="srez-app-header__search">
-            <CatalogSearch
-              selectedLook={selectedLook}
-              query={query}
-              onQueryChange={setQuery}
-              onSubmit={submitSearch}
-            />
-          </div>
-        ) : null}
 
         <div className="srez-app-header__right">
           <button
             type="button"
             className={`srez-app-header__favourites ${favouritesActive ? 'is-active' : ''}`}
             aria-current={favouritesActive ? 'page' : undefined}
+            aria-label="Избранное"
+            title="Избранное"
             data-qa-ignore
             onClick={() => go('Favourites')}
           >
-            Избранное{saved ? <span>1</span> : null}
+            <Icon name="heart" size={21} />{saved ? <span>1</span> : null}
           </button>
         </div>
       </div>
