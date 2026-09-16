@@ -61,6 +61,7 @@ export function Header({ screen, saved, go, selectedLook = null }: Props) {
             type="button"
             className={`srez-app-header__favourites ${favouritesActive ? 'is-active' : ''}`}
             aria-current={favouritesActive ? 'page' : undefined}
+            data-qa-ignore
             onClick={() => go('Favourites')}
           >
             Избранное{saved ? <span>1</span> : null}
