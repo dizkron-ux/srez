@@ -20,6 +20,7 @@ export function LookMasterSelector({ masters, onOpenMaster }: Props) {
             <button
               type="button"
               className={`srez-look-detail__master ${index === activeMaster ? 'is-active' : ''}`}
+              data-qa-ignore
               onMouseEnter={() => setActiveMaster(index)}
               onFocus={() => setActiveMaster(index)}
               onClick={onOpenMaster}
