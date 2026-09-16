@@ -5,6 +5,11 @@ const meta = {
   title: 'Components/Work card',
   component: WorkCard,
   parameters: { layout: 'centered' },
+  args: {
+    index: 0,
+    ratio: 1,
+    onOpen: () => {},
+  },
 } satisfies Meta<typeof WorkCard>;
 
 export default meta;
