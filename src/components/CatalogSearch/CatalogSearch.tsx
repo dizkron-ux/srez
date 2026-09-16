@@ -115,7 +115,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
           placeholder=""
         />
         {!query ? (
-          <span className="srez-catalog-search__animated-placeholder" key={phraseIndex} aria-hidden="true">
+          <span className="srez-catalog-search__animated-placeholder" key={phraseIndex} aria-hidden="true" data-qa-ignore>
             {selectedLook ? `Уточнить: ${PHRASES[phraseIndex]}` : `Например, ${PHRASES[phraseIndex]}`}
           </span>
         ) : null}
