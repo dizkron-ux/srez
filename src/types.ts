@@ -44,6 +44,7 @@ export type AppState = {
   screen: Screen;
   focus: boolean;
   selectedLookId: string | null;
+  selectedCollectionId?: string | null;
   city: boolean;
   showAll: boolean;
   filtersOpen: boolean;

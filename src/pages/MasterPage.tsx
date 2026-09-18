@@ -9,13 +9,32 @@ import { LOOKS } from '../data/looks';
 import { MASTERS } from '../data/masters';
 import type { AppState, Screen } from '../types';
 
-type Props = { state:AppState; go:(screen:Screen)=>void; onSave:()=>void };
+type Props = { state:AppState; go:(screen:Screen)=>void; onSave:()=>void; toast:(message:string)=>void };
 
 const WorkplaceMap = lazy(() => import('../components/WorkplaceMap/WorkplaceMap').then(module => ({ default: module.WorkplaceMap })));
 
-export function MasterPage({ state, go, onSave }: Props) {
+export function MasterPage({ state, go, onSave, toast }: Props) {
   const master = MASTERS[0];
   const selectedLook = LOOKS.find(look => look.id === state.selectedLookId)?.name ?? null;
+  const shareProfile = async () => {
+    const shareData = {
+      title: `${master.name} — SREZ`,
+      text: `Профиль мастера ${master.name} на SREZ`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+      await navigator.clipboard.writeText(shareData.url);
+      toast('Ссылка на профиль скопирована');
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+      toast('Не удалось скопировать ссылку');
+    }
+  };
   return (
     <div className="srez-app srez-master-profile-page">
       <Header screen={state.screen} saved={state.saved} go={go} selectedLook={selectedLook} />
@@ -41,9 +60,9 @@ export function MasterPage({ state, go, onSave }: Props) {
                 </div>
 
                 <div className="srez-master-profile-actions">
-                  <Button>Перейти к записи</Button>
+                  <Button onClick={() => toast('Онлайн-запись пока недоступна в прототипе')}>Перейти к записи</Button>
                   <SaveButton saved={state.saved} onClick={onSave} />
-                  <IconButton icon="share" iconSize={18} aria-label="Поделиться профилем" className="srez-profile-share__trigger" />
+                  <IconButton icon="share" iconSize={18} aria-label="Поделиться профилем" className="srez-profile-share__trigger" onClick={shareProfile} />
                 </div>
               </div>
 
@@ -83,7 +102,7 @@ export function MasterPage({ state, go, onSave }: Props) {
             <section className="srez-master-profile-works" aria-labelledby="srez-master-works-title">
               <div className="cosmos-section-heading">
                 <h2 id="srez-master-works-title">Работы</h2>
-                <IconButton icon="sliders" iconSize={18} aria-label="Фильтры работ" className="srez-profile-filters__trigger" />
+                <IconButton icon="sliders" iconSize={18} aria-label="Фильтры работ" className="srez-profile-filters__trigger" onClick={() => toast('Фильтры работ появятся после подключения портфолио')} />
               </div>
               <div className="srez-work-grid">
                 {[.82,1.08,.7,1.22,.94,.76,1.12,.86].map((ratio, index) => (

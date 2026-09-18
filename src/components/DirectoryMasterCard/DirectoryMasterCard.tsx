@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Media } from '../Media/Media';
 import type { DirectoryMaster } from '../../data/directoryMasters';
 
@@ -5,36 +6,49 @@ type Props = {
   master: DirectoryMaster;
   index: number;
   active?: boolean;
+  instanceId?: string;
+  accessibilityClone?: boolean;
   onActivate?: (masterId: string) => void;
   onOpen: () => void;
 };
 
-export function DirectoryMasterCard({
+export const DirectoryMasterCard = memo(function DirectoryMasterCard({
   master,
   index,
   active = false,
+  instanceId,
+  accessibilityClone = false,
   onActivate,
   onOpen,
 }: Props) {
+  const preventCloneFocus = accessibilityClone
+    ? (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault()
+    : undefined;
+
   return (
     <article
-      id={`directory-${master.id}`}
+      id={`directory-${master.id}${instanceId ? `-${instanceId}` : ''}`}
       className={`srez-master-directory-card ${active ? 'is-active' : ''}`}
-      onMouseEnter={() => onActivate?.(master.id)}
-      onFocusCapture={() => onActivate?.(master.id)}
+      aria-hidden={accessibilityClone || undefined}
+      onMouseEnter={accessibilityClone ? undefined : () => onActivate?.(master.id)}
+      onFocusCapture={accessibilityClone ? undefined : () => onActivate?.(master.id)}
     >
       <div className="srez-master-directory-card__header">
         <button
           type="button"
           className="srez-master-directory-card__profile"
           onClick={onOpen}
+          onMouseDown={preventCloneFocus}
+          tabIndex={accessibilityClone ? -1 : undefined}
           aria-label={`Открыть профиль мастера ${master.name}`}
         >
           <img
             className="srez-master-directory-card__photo"
             src={master.photo}
             alt=""
-            loading={index < 6 ? 'eager' : 'lazy'}
+            width="96"
+            height="96"
+            loading={!accessibilityClone && index < 6 ? 'eager' : 'lazy'}
             decoding="async"
           />
           <span className="srez-master-directory-card__identity-copy">
@@ -60,6 +74,8 @@ export function DirectoryMasterCard({
         type="button"
         className="srez-master-directory-card__works"
         onClick={onOpen}
+        onMouseDown={preventCloneFocus}
+        tabIndex={accessibilityClone ? -1 : undefined}
         aria-label={`Открыть работы мастера ${master.name}`}
       >
         {master.media.map((mediaIndex, mediaItemIndex) => (
@@ -71,4 +87,4 @@ export function DirectoryMasterCard({
 
     </article>
   );
-}
+});

@@ -19,12 +19,12 @@ const FEED = Array.from({ length: 32 }, (_, index) => ({
 
 export function HaircutsPage({ state, setState, go }: Props) {
   const selectCollection = (collection: MasterCollection) => {
-    setState(current => ({ ...current, selectedLookId: collection.lookId }));
+    setState(current => ({ ...current, selectedLookId: collection.lookId, selectedCollectionId: collection.id }));
   };
 
   const onOpen = (feedIndex: number) => {
     const item = FEED[feedIndex];
-    setState(current => ({ ...current, selectedLookId: item.look.id, focus: item.look.id === 'mullet', screen: 'Look' }));
+    setState(current => ({ ...current, selectedLookId: item.look.id, selectedCollectionId: null, focus: item.look.id === 'mullet', screen: 'Look' }));
     window.scrollTo(0, 0);
   };
 

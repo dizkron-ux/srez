@@ -9,12 +9,17 @@ import type { AppState, Screen } from '../types';
 
 type Props = {
   state: AppState;
+  setState: React.Dispatch<React.SetStateAction<AppState>>;
   go: (screen: Screen) => void;
 };
 
-export function LookPage({ state, go }: Props) {
+export function LookPage({ state, setState, go }: Props) {
   const look = LOOKS.find(item => item.id === state.selectedLookId) ?? LOOKS[0];
   const lookIndex = Math.max(0, LOOKS.findIndex(item => item.id === look.id));
+  const openLook = (lookId: string) => {
+    setState(current => ({ ...current, selectedLookId: lookId, selectedCollectionId: null, screen: 'Look' }));
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="srez-app srez-look-detail-page">
@@ -22,7 +27,7 @@ export function LookPage({ state, go }: Props) {
 
       <main className="srez-look-detail">
         <section className="srez-look-detail__stage" aria-label={`Стрижка ${look.name}`}>
-          <IconButton icon="arrow-left" iconSize={18} aria-label="Назад к стрижкам" className="srez-look-detail__back" onClick={() => go('Home')} />
+          <IconButton icon="arrow-left" iconSize={18} aria-label="Назад к стрижкам" className="srez-look-detail__back" onClick={() => go('Haircuts')} />
 
           <div className="srez-look-detail__visual-wrap">
             <div className="srez-look-detail__visual">
@@ -50,7 +55,7 @@ export function LookPage({ state, go }: Props) {
         <h2>Похожие стрижки</h2>
         <div className="srez-look-detail__more-grid">
           {LOOKS.filter(item => item.id !== look.id).slice(0, 4).map((item, index) => (
-            <button type="button" key={item.id} onClick={() => go('Home')}>
+            <button type="button" key={item.id} onClick={() => openLook(item.id)}>
               <Media index={index + 1} ratioOverride={1.08} />
               <span>{item.name}</span>
             </button>

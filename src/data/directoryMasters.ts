@@ -8,6 +8,7 @@ export type DirectoryMaster = {
   reviewCount: number;
   media: readonly [number, number, number];
   coordinates: readonly [longitude: number, latitude: number];
+  collectionIds: readonly string[];
 };
 
 const NAMES = [
@@ -54,6 +55,17 @@ const PLACE_COORDINATES = [
   [37.6793, 55.7724],
 ] as const;
 
+const COLLECTION_IDS = [
+  ['fades', 'short'],
+  ['long'],
+  ['curls', 'texture'],
+  ['texture'],
+  ['mullet-shag', 'long'],
+  ['classic', 'fades', 'short'],
+  ['fringe', 'long'],
+  ['texture'],
+] as const;
+
 export const DIRECTORY_MASTERS: readonly DirectoryMaster[] = NAMES.map((name, index) => ({
   id: `master-${index + 1}`,
   name,
@@ -67,4 +79,5 @@ export const DIRECTORY_MASTERS: readonly DirectoryMaster[] = NAMES.map((name, in
     PLACE_COORDINATES[index % PLACE_COORDINATES.length][0] + ((Math.floor(index / 8) % 2 ? 1 : -1) * Math.floor(index / 8) * 0.006),
     PLACE_COORDINATES[index % PLACE_COORDINATES.length][1] + ((Math.floor(index / 8) % 3) - 1) * 0.005,
   ],
+  collectionIds: COLLECTION_IDS[index % COLLECTION_IDS.length],
 }));

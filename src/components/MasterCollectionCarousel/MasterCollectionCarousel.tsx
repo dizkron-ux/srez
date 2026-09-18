@@ -29,14 +29,20 @@ export function MasterCollectionCarousel({ collections, selectedLookId = null, o
   const dragRef = useRef({ active: false, moved: false, startX: 0, startScroll: 0 });
   const suppressClickRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [scrollState, setScrollState] = useState({ canScrollLeft: false, canScrollRight: false });
 
   const updateScrollState = () => {
     const track = trackRef.current;
     if (!track) return;
-    setCanScrollLeft(track.scrollLeft > 2);
-    setCanScrollRight(track.scrollLeft + track.clientWidth < track.scrollWidth - 2);
+    const next = {
+      canScrollLeft: track.scrollLeft > 2,
+      canScrollRight: track.scrollLeft + track.clientWidth < track.scrollWidth - 2,
+    };
+    setScrollState(current => (
+      current.canScrollLeft === next.canScrollLeft && current.canScrollRight === next.canScrollRight
+        ? current
+        : next
+    ));
   };
 
   useEffect(() => {
@@ -139,7 +145,7 @@ export function MasterCollectionCarousel({ collections, selectedLookId = null, o
           className="srez-master-collections__arrow is-left"
           aria-label="Предыдущие подборки"
           data-tooltip="Предыдущие подборки"
-          disabled={!canScrollLeft}
+          disabled={!scrollState.canScrollLeft}
           onClick={() => scroll(-1)}
         >
           <Icon name="arrow-left" size={18} />
@@ -149,7 +155,7 @@ export function MasterCollectionCarousel({ collections, selectedLookId = null, o
           className="srez-master-collections__arrow is-right"
           aria-label="Следующие подборки"
           data-tooltip="Следующие подборки"
-          disabled={!canScrollRight}
+          disabled={!scrollState.canScrollRight}
           onClick={() => scroll(1)}
         >
           <Icon name="arrow-right" size={18} />

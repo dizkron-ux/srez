@@ -34,11 +34,12 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      if (!query && !photoOpen) setPhraseIndex(current => (current + 1) % PHRASES.length);
+    if (query || photoOpen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setTimeout(() => {
+      setPhraseIndex(current => (current + 1) % PHRASES.length);
     }, 2600);
-    return () => window.clearInterval(timer);
-  }, [query, photoOpen]);
+    return () => window.clearTimeout(timer);
+  }, [phraseIndex, query, photoOpen]);
 
   useEffect(() => () => {
     if (photo?.url) URL.revokeObjectURL(photo.url);
@@ -71,6 +72,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
       if (current?.url) URL.revokeObjectURL(current.url);
       return null;
     });
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const onBlur = () => {
@@ -148,7 +150,11 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
             className={`srez-catalog-search__dropzone ${dragActive ? 'is-dragging' : ''}`}
             onDragEnter={event => { event.preventDefault(); setDragActive(true); }}
             onDragOver={event => event.preventDefault()}
-            onDragLeave={() => setDragActive(false)}
+            onDragLeave={event => {
+              if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
+                setDragActive(false);
+              }
+            }}
             onDrop={onDrop}
           >
             <Icon name="image" size={20} />

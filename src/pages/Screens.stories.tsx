@@ -74,11 +74,11 @@ function StatefulScreen({ initial }: { initial: AppState }) {
     case 'Haircuts':
       return <HaircutsPage state={state} setState={setState} go={go} />;
     case 'Look':
-      return <LookPage state={state} go={go} />;
+      return <LookPage state={state} setState={setState} go={go} />;
     case 'Catalog':
       return <CatalogPage state={state} setState={setState} go={go} />;
     case 'Master':
-      return <MasterPage state={state} go={go} onSave={onSave} />;
+      return <MasterPage state={state} go={go} onSave={onSave} toast={() => {}} />;
     case 'Work':
       return <WorkPage state={state} go={go} />;
     case 'Photo':

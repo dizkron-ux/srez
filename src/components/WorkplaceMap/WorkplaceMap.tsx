@@ -32,12 +32,18 @@ export function WorkplaceMap({ workplace }: Props) {
       .setLngLat([workplace.coordinates[0], workplace.coordinates[1]])
       .addTo(map);
 
-    const resizeObserver = new ResizeObserver(() => map.resize());
+    let resizeFrame = 0;
+    const requestResize = () => {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => map.resize());
+    };
+    const resizeObserver = new ResizeObserver(requestResize);
     resizeObserver.observe(containerRef.current);
-    requestAnimationFrame(() => map.resize());
+    requestResize();
 
     return () => {
       resizeObserver.disconnect();
+      window.cancelAnimationFrame(resizeFrame);
       map.remove();
     };
   }, [workplace]);

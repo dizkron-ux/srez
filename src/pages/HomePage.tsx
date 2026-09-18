@@ -1,34 +1,42 @@
 import { useState } from 'react';
-import { LOOKS } from '../data/looks';
 import { MASTERS } from '../data/masters';
 import { Button } from '../components/Button/Button';
 import { CityPopover } from '../components/CityPopover/CityPopover';
 import { CatalogSearch } from '../components/CatalogSearch/CatalogSearch';
+import { HaircutTypeGrid } from '../components/HaircutTypeGrid/HaircutTypeGrid';
 import { Header } from '../components/Header/Header';
-import { LookCard } from '../components/LookCard/LookCard';
-import { MasterCard } from '../components/MasterCard/MasterCard';
 import { MasterPortfolioPreview } from '../components/MasterPortfolioPreview/MasterPortfolioPreview';
+import { PopularMasterCarousel } from '../components/PopularMasterCarousel/PopularMasterCarousel';
 import { RegionSelector } from '../components/RegionSelector/RegionSelector';
+import { DIRECTORY_MASTERS } from '../data/directoryMasters';
+import { MASTER_COLLECTIONS } from '../data/masterCollections';
+import type { MasterCollection } from '../data/masterCollections';
 import type { AppState, Screen } from '../types';
+
+const HOME_HAIRCUT_COLLECTIONS = MASTER_COLLECTIONS.slice(0, 6);
+const POPULAR_MASTERS = DIRECTORY_MASTERS.slice(0, 10);
 
 type Props = {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   go: (screen: Screen) => void;
   toast: (message: string) => void;
-  onSave?: () => void;
 };
 
-export function HomePage({ state, setState, go, toast, onSave = () => {} }: Props) {
+export function HomePage({ state, setState, go, toast }: Props) {
   const [query, setQuery] = useState('');
-  const shown = LOOKS.slice(0,4);
   const submitSearch = () => {
     go('Catalog');
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   };
-  const onOpen = (index: number) => {
-    const look = LOOKS[index] ?? LOOKS[0];
-    setState(current => ({ ...current, selectedLookId: look.id, focus: look.id === 'mullet', screen: 'Look' }));
+  const openCollection = (collection: MasterCollection) => {
+    setState(current => ({
+      ...current,
+      selectedLookId: collection.lookId,
+      selectedCollectionId: collection.id,
+      focus: collection.lookId === 'mullet',
+      screen: 'Catalog',
+    }));
     window.scrollTo(0, 0);
   };
 
@@ -75,15 +83,18 @@ export function HomePage({ state, setState, go, toast, onSave = () => {} }: Prop
             <span className="srez-hero-proof__label">500+ специалистов на площадке</span>
           </div>
         </section>
+        <section className="srez-section srez-home-haircut-types" aria-labelledby="home-haircut-types-title">
+          <div className="srez-section-title">
+            <div>
+              <h2 id="home-haircut-types-title">По типу стрижки</h2>
+            </div>
+            <Button variant="secondary" onClick={() => go('Haircuts')}>Все стрижки</Button>
+          </div>
+          <HaircutTypeGrid collections={HOME_HAIRCUT_COLLECTIONS} onSelect={openCollection} />
+        </section>
         <section className="srez-section srez-home-masters">
           <div className="srez-section-title"><div><h2>Популярные мастера</h2></div><Button variant="secondary" onClick={() => go('Catalog')}>Посмотреть все</Button></div>
-          <div className="srez-master-grid srez-home-masters__grid">
-            {MASTERS.slice(0, 3).map(master => <MasterCard master={master} saved={state.saved} onSave={onSave} go={go} mediaMode="photo" key={master.name} />)}
-          </div>
-        </section>
-        <section className="srez-section">
-          <div className="srez-section-title"><div><h2>Популярные стрижки</h2></div><Button variant="secondary" onClick={() => go('Catalog')}>Посмотреть все</Button></div>
-          <div className="srez-look-wrap"><div className="cosmos-masonry srez-look-masonry">{shown.map(look => <LookCard look={look} index={LOOKS.indexOf(look)} onOpen={onOpen} key={look.id} />)}</div></div>
+          <PopularMasterCarousel masters={POPULAR_MASTERS} onOpen={() => go('Master')} />
         </section>
       </main>
     </div>

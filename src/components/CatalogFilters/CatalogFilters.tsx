@@ -34,6 +34,8 @@ export function CatalogFilters({ initialOpen = false }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!open) return;
+
     const onPointerDown = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
     };
@@ -47,7 +49,7 @@ export function CatalogFilters({ initialOpen = false }: Props) {
       document.removeEventListener('pointerdown', onPointerDown);
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, []);
+  }, [open]);
 
   const toggleOption = (groupId: string, option: string) => {
     setSelected(current => {

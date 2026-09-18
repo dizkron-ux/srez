@@ -5,6 +5,19 @@ import type { DirectoryMaster } from '../../data/directoryMasters';
 
 const MOSCOW_CENTER: [number, number] = [37.6173, 55.7558];
 
+function formatMasterCount(count: number) {
+  const lastTwo = count % 100;
+  const last = count % 10;
+  const noun = lastTwo >= 11 && lastTwo <= 14
+    ? 'мастеров'
+    : last === 1
+      ? 'мастер'
+      : last >= 2 && last <= 4
+        ? 'мастера'
+        : 'мастеров';
+  return `${count} ${noun} в Москве`;
+}
+
 type Props = {
   masters: readonly DirectoryMaster[];
   activeMasterId: string | null;
@@ -35,16 +48,23 @@ export function MasterMap({ masters, activeMasterId, onSelect }: Props) {
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
 
-    const resizeObserver = new ResizeObserver(() => map.resize());
+    let resizeFrame = 0;
+    const requestResize = () => {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => map.resize());
+    };
+    const resizeObserver = new ResizeObserver(requestResize);
     resizeObserver.observe(containerRef.current);
-    requestAnimationFrame(() => map.resize());
+    requestResize();
 
     masters.forEach(master => {
       const marker = document.createElement('button');
       marker.type = 'button';
       marker.className = 'srez-master-map__marker';
       marker.setAttribute('aria-label', `${master.name}, рейтинг ${master.rating.toFixed(1)}`);
-      marker.innerHTML = `<span>${master.rating.toFixed(1)}</span>`;
+      const markerLabel = document.createElement('span');
+      markerLabel.textContent = master.rating.toFixed(1);
+      marker.append(markerLabel);
       marker.addEventListener('click', event => {
         event.stopPropagation();
         selectRef.current(master.id);
@@ -60,6 +80,7 @@ export function MasterMap({ masters, activeMasterId, onSelect }: Props) {
     mapRef.current = map;
     return () => {
       resizeObserver.disconnect();
+      window.cancelAnimationFrame(resizeFrame);
       map.remove();
       mapRef.current = null;
       markerElementsRef.current.clear();
@@ -77,7 +98,7 @@ export function MasterMap({ masters, activeMasterId, onSelect }: Props) {
   return (
     <div className="srez-master-map" aria-label="Карта мастеров Москвы">
       <div className="srez-master-map__canvas" ref={containerRef} />
-      <div className="srez-master-map__legend" aria-hidden="true">32 мастера в Москве</div>
+      <div className="srez-master-map__legend" aria-hidden="true">{formatMasterCount(masters.length)}</div>
     </div>
   );
 }
