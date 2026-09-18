@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Master } from '../../types';
 import { Icon } from '../Icon/Icon';
-import { Media } from '../Media/Media';
+import { MasterPortfolioPreview } from '../MasterPortfolioPreview/MasterPortfolioPreview';
 
 type Props = {
   masters: Master[];
@@ -32,20 +32,7 @@ export function LookMasterSelector({ masters, onOpenMaster }: Props) {
               </span>
               <Icon name="arrow-up-right" size={15} />
             </button>
-            <div className="srez-look-detail__portfolio" aria-hidden="true" data-qa-ignore>
-              <div className="srez-look-detail__portfolio-media">
-                {item.media.slice(0, 2).map((mediaIndex, mediaItemIndex) => (
-                  <Media index={mediaIndex} ratioOverride={1.38} key={`${item.name}-${mediaItemIndex}`} />
-                ))}
-              </div>
-              <div className="srez-look-detail__portfolio-meta">
-                <div className="srez-look-detail__portfolio-avatar">{item.name.slice(0, 1)}</div>
-                <div>
-                  <strong>{item.name}</strong>
-                  <span>{item.shop} · портфолио</span>
-                </div>
-              </div>
-            </div>
+            <MasterPortfolioPreview master={item} />
           </div>
         ))}
       </div>

@@ -138,6 +138,7 @@ export function MasterCollectionCarousel({ collections, selectedLookId = null, o
           type="button"
           className="srez-master-collections__arrow is-left"
           aria-label="Предыдущие подборки"
+          data-tooltip="Предыдущие подборки"
           disabled={!canScrollLeft}
           onClick={() => scroll(-1)}
         >
@@ -147,6 +148,7 @@ export function MasterCollectionCarousel({ collections, selectedLookId = null, o
           type="button"
           className="srez-master-collections__arrow is-right"
           aria-label="Следующие подборки"
+          data-tooltip="Следующие подборки"
           disabled={!canScrollRight}
           onClick={() => scroll(1)}
         >

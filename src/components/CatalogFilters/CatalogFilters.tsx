@@ -66,6 +66,7 @@ export function CatalogFilters({ initialOpen = false }: Props) {
         icon="sliders"
         iconSize={18}
         aria-label={selectedCount ? `Фильтры, выбрано ${selectedCount}` : 'Фильтры'}
+        tooltip={selectedCount ? `Фильтры · выбрано ${selectedCount}` : 'Фильтры'}
         className={`srez-catalog-filters__trigger ${selectedCount ? 'is-active' : ''}`}
         aria-expanded={open}
         onClick={() => setOpen(value => !value)}

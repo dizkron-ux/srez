@@ -129,6 +129,7 @@ export function CatalogSearch({ selectedLook, query, onQueryChange, onSubmit }: 
         size="md"
         variant="ghost"
         aria-label="Найти по фотографии"
+        tooltip="Поиск по фото"
         className={`srez-catalog-search__icon ${photoOpen ? 'is-active' : ''}`}
         onClick={() => setPhotoOpen(value => !value)}
         aria-expanded={photoOpen}

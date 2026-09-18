@@ -6,6 +6,7 @@ import { HomePage } from '../pages/HomePage';
 import { LookPage } from '../pages/LookPage';
 import { MasterPage } from '../pages/MasterPage';
 import { WorkPage } from '../pages/WorkPage';
+import { TooltipLayer } from '../components/TooltipLayer/TooltipLayer';
 import type { AppState, Screen } from '../types';
 
 const initialState: AppState = {
@@ -47,5 +48,5 @@ export function App() {
     }
   }, [state]);
 
-  return <>{page}<div className={`preview-toast ${toastVisible ? 'show' : ''}`}>{toastText}</div></>;
+  return <>{page}<TooltipLayer /><div className={`preview-toast ${toastVisible ? 'show' : ''}`}>{toastText}</div></>;
 }

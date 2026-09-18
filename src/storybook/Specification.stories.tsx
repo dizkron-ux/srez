@@ -9,7 +9,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const screenRows = [
-  ['Home', 'default · focus · all looks · city modal'],
+  ['Home', 'default · focus · all looks · city popover'],
   ['Haircut detail', 'mullet · wolf'],
   ['Catalog', 'default · mullet · filters open'],
   ['Master', 'default · saved'],
@@ -22,17 +22,17 @@ const publicComponents = [
   'Button',
   'Icon button',
   'Header',
-  'Modal',
+  'City popover',
   'Look card',
   'Master card',
   'Work card',
 ];
 
 const componentRows = [
-  ['Button', 'primary · secondary · ghost · sm/md/lg · icon start/end', 'default · hover · focus · pressed · disabled · long label', 'Home · Look · Master · Work · Photo · Favourites · City modal · Catalog filters/search', 'Components / Button'],
+  ['Button', 'primary · secondary · ghost · sm/md/lg · icon start/end', 'default · hover · focus · pressed · disabled · long label', 'Home · Look · Master · Work · Photo · Favourites · City popover · Catalog filters/search', 'Components / Button'],
   ['Icon button', 'surface · ghost · sm/md/lg · icon', 'default · hover · focus · pressed · disabled · selected/saved', 'Back · close · image upload · filters · share · SaveButton', 'Components / Icon button'],
   ['Header', 'Haircuts · Masters · Favourites · selected look', 'default · current section · saved count · responsive', 'All product screens', 'Components / Header'],
-  ['Modal', 'City modal composition', 'open · empty input · focus · responsive', 'Home / RegionSelector', 'Components / Modal'],
+  ['City popover', 'Contextual city request', 'open · empty input · focus · responsive', 'Home / RegionSelector', 'Components / City popover'],
   ['Look card', 'Product fixtures', 'default · hover · focus · long label · responsive', 'Home', 'Components / Look card'],
   ['Master card', 'Product fixtures', 'default · hover · focus · saved · long content · responsive', 'Home · Favourites', 'Components / Master card'],
   ['Work card', 'portrait · regular · landscape ratios', 'default · hover · focus · responsive', 'Master', 'Components / Work card'],
@@ -45,7 +45,7 @@ const componentRows = [
 
 const internalRows = [
   ['SaveButton', 'Semantic favourite wrapper over IconButton; saved copy and aria-pressed belong to the product action.'],
-  ['RegionSelector', 'Single-purpose Home helper; documented through Home and Modal instead of a public sidebar page.'],
+  ['RegionSelector', 'Single-purpose Home helper; documented through Home and City popover instead of a public sidebar page.'],
   ['Media', 'Prototype placeholder implementation, not yet a stable real-media API.'],
   ['Pills / chips / tags', 'Work taxonomy labels and removable photo-analysis assumptions have different evidence/interaction semantics, so they are not merged by appearance alone.'],
 ];
@@ -114,7 +114,7 @@ export const Service: Story = {
           <li>Saved state is one global boolean and is not persisted.</li>
           <li>Master and Work use the first fixture instead of a selected entity id.</li>
           <li>Loading, network error, no-results, missing-evidence and media-error states are not implemented yet.</li>
-          <li>City modal does not persist the entered city or implement a focus trap.</li>
+          <li>City popover does not persist the entered city yet.</li>
           <li>Photo analysis screen is preserved as a prototype fixture but is not reachable in the current App.</li>
         </ul>
       </section>

@@ -11,6 +11,7 @@ type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
   size?: IconButtonSize;
   iconSize?: number;
   selected?: boolean;
+  tooltip?: string;
 };
 
 export function IconButton({
@@ -20,6 +21,7 @@ export function IconButton({
   size = 'lg',
   iconSize,
   selected,
+  tooltip,
   className = '',
   type = 'button',
   ...props
@@ -32,6 +34,7 @@ export function IconButton({
       className={`cosmos-icon-button cosmos-icon-button--${variant} cosmos-icon-button--${size} ${selected ? 'is-selected' : ''} ${className}`.trim()}
       aria-label={ariaLabel}
       aria-pressed={selected === undefined ? props['aria-pressed'] : selected}
+      data-tooltip={tooltip ?? ariaLabel}
       {...props}
     >
       <Icon name={icon} size={resolvedIconSize} />

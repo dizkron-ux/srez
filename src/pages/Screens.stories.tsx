@@ -43,7 +43,7 @@ function stateFor(screen: Screen, preset: string): AppState {
       state.selectedLookId = 'mullet';
     }
     if (preset === 'all-looks') state.showAll = true;
-    if (preset === 'city-modal') state.city = true;
+    if (preset === 'city-popover') state.city = true;
   }
 
   if (screen === 'Look') state.selectedLookId = preset === 'wolf' ? 'wolf' : 'mullet';
@@ -99,7 +99,7 @@ export const Home: Story = {
   argTypes: {
     preset: {
       control: 'select',
-      options: ['default', 'focus', 'all-looks', 'city-modal'],
+      options: ['default', 'focus', 'all-looks', 'city-popover'],
       description: 'State preset',
     },
   },

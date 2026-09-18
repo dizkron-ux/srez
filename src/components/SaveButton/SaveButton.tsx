@@ -15,7 +15,6 @@ export function SaveButton({ saved, onClick, disabled = false }: Props) {
       selected={saved}
       className={`cosmos-save ${saved ? 'is-saved' : ''}`}
       onClick={onClick}
-      title={saved ? 'Удалить из избранного' : 'Добавить в избранное'}
       disabled={disabled}
     />
   );

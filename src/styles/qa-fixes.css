@@ -55,7 +55,55 @@
 }
 
 .srez-hero-proof {
+  position: relative;
+  z-index: var(--layer-raised);
   min-height: 38px;
+}
+
+.srez-hero-proof:hover,
+.srez-hero-proof:focus-within,
+.srez-look-detail__master-wrap:hover,
+.srez-look-detail__master-wrap:focus-within {
+  z-index: var(--layer-preview);
+}
+
+.srez-region-control:has(.srez-city-popover),
+.srez-hero-search:has(.srez-catalog-search__visual-panel),
+.srez-catalog-search:has(.srez-catalog-search__visual-panel),
+.srez-catalog-filters:has(.srez-catalog-filters__popover) {
+  z-index: var(--layer-popover);
+}
+
+.srez-hero-proof__avatar-wrap {
+  position: relative;
+  margin-left: -7px;
+}
+
+.srez-hero-proof__avatar-wrap:first-child {
+  margin-left: 0;
+}
+
+.srez-hero-proof__avatar {
+  margin-left: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.srez-hero-proof__portfolio {
+  right: auto;
+  left: 50%;
+  top: auto;
+  bottom: calc(100% + 14px);
+  width: 360px;
+  text-align: left;
+  transform: translate(-50%, 8px);
+}
+
+.srez-hero-proof__avatar-wrap:hover .srez-hero-proof__portfolio,
+.srez-hero-proof__avatar-wrap:focus-within .srez-hero-proof__portfolio {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
 }
 
 .srez-home-masters {
@@ -84,45 +132,8 @@ h1.srez-page-title {
   margin-bottom: 0;
 }
 
-.srez-master-profile-head {
-  padding-top: 0;
-}
-
-.srez-master-profile-identity.srez-page-head {
-  align-items: start;
-  grid-template-columns: minmax(0, 1fr) 80px auto;
-}
-
 .srez-cosmos-catalog__intro.srez-page-head {
   align-items: flex-start;
-}
-
-.srez-master-profile-avatar {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.srez-master-profile-copy {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.srez-master-profile-actions {
-  grid-column: 3;
-  grid-row: 1;
-  align-self: start;
-  padding-bottom: 0;
-}
-
-@media (max-width: 900px) {
-  .srez-master-profile-identity.srez-page-head {
-    grid-template-columns: minmax(0, 1fr) 64px;
-  }
-
-  .srez-master-profile-actions {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
 }
 
 .srez-home-masters__grid {
@@ -185,6 +196,10 @@ h1.srez-page-title {
 }
 
 @media (max-width: 620px) {
+  .srez-hero-proof__portfolio {
+    display: none;
+  }
+
   .srez-page-head {
     padding-top: 26px;
     padding-bottom: 18px;
@@ -195,7 +210,17 @@ h1.srez-page-title {
   }
 
   .srez-master-profile-identity.srez-page-head {
-    grid-template-columns: minmax(0, 1fr) 52px;
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 340px) {
+  .srez-hero-proof {
+    gap: 8px;
+  }
+
+  .srez-hero-proof__label {
+    font-size: 13px;
   }
 }
 

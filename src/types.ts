@@ -11,10 +11,30 @@ export type Look = {
 
 export type Proof = [label: string, detail: string];
 
+export type PublicLink = {
+  label: string;
+  value: string;
+  url: string;
+};
+
+export type Workplace = {
+  name: string;
+  logo: string;
+  address: string;
+  mapUrl: string;
+  coordinates: readonly [longitude: number, latitude: number];
+};
+
 export type Master = {
   name: string;
   place: string;
   shop: string;
+  rating: number;
+  reviewCount: number;
+  bio: string;
+  services: string[];
+  publicLinks?: PublicLink[];
+  workplace?: Workplace;
   proof: Proof[];
   tags: string[];
   media: number[];
