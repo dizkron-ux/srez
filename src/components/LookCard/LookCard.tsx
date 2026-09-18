@@ -9,7 +9,7 @@ export function LookCard({ look, index, onOpen }: Props) {
     <article className="srez-look">
       <button type="button" className="srez-look__media" aria-label={`Открыть ${look.name}`} onClick={() => onOpen(index)}>
         <Media index={index} />
-        <span className="srez-look__open">открыть <Icon name="arrow-up-right" size={13} /></span>
+        <span className="srez-look__open">3 Мастера <Icon name="arrow-up-right" size={13} /></span>
       </button>
       <button type="button" className="srez-look__title" onClick={() => onOpen(index)}>{look.name}</button>
     </article>

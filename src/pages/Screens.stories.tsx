@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { CatalogPage } from './CatalogPage';
 import { FavouritesPage } from './FavouritesPage';
+import { HaircutsPage } from './HaircutsPage';
 import { HomePage } from './HomePage';
+import { LookPage } from './LookPage';
 import { MasterPage } from './MasterPage';
 import { PhotoPage } from './PhotoPage';
 import { WorkPage } from './WorkPage';
@@ -23,6 +25,7 @@ type Story = StoryObj<ScreenStoryArgs>;
 const base: AppState = {
   screen: 'Home',
   focus: false,
+  selectedLookId: null,
   city: false,
   showAll: false,
   filtersOpen: false,
@@ -35,14 +38,19 @@ function stateFor(screen: Screen, preset: string): AppState {
   const state: AppState = { ...base, screen };
 
   if (screen === 'Home') {
-    if (preset === 'focus') state.focus = true;
+    if (preset === 'focus') {
+      state.focus = true;
+      state.selectedLookId = 'mullet';
+    }
     if (preset === 'all-looks') state.showAll = true;
-    if (preset === 'city-modal') state.city = true;
+    if (preset === 'city-popover') state.city = true;
   }
+
+  if (screen === 'Look') state.selectedLookId = preset === 'wolf' ? 'wolf' : 'mullet';
 
   if (screen === 'Catalog') {
     if (preset === 'filters-open') state.filtersOpen = true;
-    if (preset === 'saved') state.saved = true;
+    if (preset === 'mullet') state.selectedLookId = 'mullet';
   }
 
   if (screen === 'Master' && preset === 'saved') state.saved = true;
@@ -63,10 +71,14 @@ function StatefulScreen({ initial }: { initial: AppState }) {
   const onSave = () => setState(current => ({ ...current, saved: !current.saved }));
 
   switch (state.screen) {
+    case 'Haircuts':
+      return <HaircutsPage state={state} setState={setState} go={go} />;
+    case 'Look':
+      return <LookPage state={state} setState={setState} go={go} />;
     case 'Catalog':
-      return <CatalogPage state={state} setState={setState} go={go} onSave={onSave} />;
+      return <CatalogPage state={state} setState={setState} go={go} />;
     case 'Master':
-      return <MasterPage state={state} go={go} onSave={onSave} />;
+      return <MasterPage state={state} go={go} onSave={onSave} toast={() => {}} />;
     case 'Work':
       return <WorkPage state={state} go={go} />;
     case 'Photo':
@@ -87,11 +99,24 @@ export const Home: Story = {
   argTypes: {
     preset: {
       control: 'select',
-      options: ['default', 'focus', 'all-looks', 'city-modal'],
+      options: ['default', 'focus', 'all-looks', 'city-popover'],
       description: 'State preset',
     },
   },
   render: ({ preset }) => <ScreenPreview screen="Home" preset={preset} />,
+};
+
+export const Look: Story = {
+  name: 'Haircut detail',
+  args: { preset: 'mullet' },
+  argTypes: {
+    preset: {
+      control: 'select',
+      options: ['mullet', 'wolf'],
+      description: 'Haircut preset',
+    },
+  },
+  render: ({ preset }) => <ScreenPreview screen="Look" preset={preset} />,
 };
 
 export const Catalog: Story = {
@@ -99,7 +124,7 @@ export const Catalog: Story = {
   argTypes: {
     preset: {
       control: 'select',
-      options: ['default', 'filters-open', 'saved'],
+      options: ['default', 'mullet', 'filters-open'],
       description: 'State preset',
     },
   },

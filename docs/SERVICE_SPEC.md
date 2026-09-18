@@ -28,7 +28,7 @@ Structure Lock rule: visual QA may change component craft, states, alignment, ic
 ### Screens
 
 1. **Home** — region selector, hero/search, haircut/result discovery, optional FocusBlock for selected Mullet.
-2. **Catalog** — query context, active filter chips, result count, filters, master cards.
+2. **Catalog** — query context, filters and a horizontal carousel of master collections grouped by haircut type.
 3. **Master** — master hero, evidence, works, specializations, workplace context.
 4. **Work** — one work/evidence detail and source/master context.
 5. **Photo** — reference-photo entry, simulated analysis, removable inferred tags, continuation to catalog.
@@ -102,20 +102,20 @@ Current data: hard-coded to first look and first master.
 Missing states: zero matching masters, multiple matches, missing description/fit, long master list.
 
 ### MasterCard
-Anatomy: collage, name/place, SaveButton, Evidence, prototype disclaimer, open-master action.
+Anatomy: collage, name/place, SaveButton and prototype disclaimer.
 States: default, saved, alternate master, long content, media hover, save focus, narrow/mobile.
-Rules: evidence stays readable without opening profile; missing data must not be disguised; collage images are explicitly placeholders in V3.
+Rules: missing data must not be disguised; collage images are explicitly placeholders in V3.
+
+### MasterCollectionCarousel
+Purpose: browse groups of masters by haircut type without turning the Catalog into a generic directory grid.
+Anatomy: horizontally scrollable track, three-image collection preview, collection title and master count, previous/next controls.
+States: default, hover, keyboard focus, selected, dragged/scrolled, first/last edge and narrow/mobile.
+Rules: no favourite action belongs to a collection card; selecting a collection updates the current haircut context; displayed counts must come from the current prototype fixture or future backend data.
 
 ### SaveButton
 States: default, saved, hover, focus, disabled. Uses `aria-pressed`.
 Current copy remains `Save/Saved` for fidelity to V3; copy localization is a separate content decision.
 Current behaviour limitation: one global saved boolean affects all master cards.
-
-### Evidence
-Purpose: explain why a master matches.
-Anatomy: section header with proof count + proof rows (label/detail).
-States: default, alternate data, long content.
-Missing states: zero proof, partial/unverified proof, source unavailable. These require product rules before implementation.
 
 ### Filters
 Groups currently rendered: haircut; hair type; desired length; style; proof; where/price.
@@ -141,8 +141,8 @@ Implemented/Storybook: default; Mullet focus selected; all looks; city modal ope
 Not implemented: search suggestions; haircut-detail state for non-Mullet items; loading of looks; empty catalogue; content errors.
 
 ### Catalog
-Implemented/Storybook: default; filters open; saved; mobile with filters.
-Not implemented: real filtering; sort; no results; loading/skeleton; error; pagination/infinite loading; partial master data.
+Implemented/Storybook: default; selected haircut collection; filters open; horizontal drag/scroll; mobile touch carousel.
+Not implemented: real backend filtering after collection selection; sort; no results; loading/skeleton; error; pagination/infinite loading; partial master data.
 
 ### Master
 Implemented/Storybook: default; saved; mobile.
